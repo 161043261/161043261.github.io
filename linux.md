@@ -1,20 +1,5 @@
 # Linux
 
-```cpp
-#define RESET  "\033[0m";    // Reset
-#define BLACK  "\033[0;30m"; // BLACK
-#define RED    "\033[0;31m"; // RED
-#define GREEN  "\033[0;32m"; // GREEN
-#define YELLOW "\033[0;33m"; // YELLOW
-#define BLUE   "\033[0;34m"; // BLUE
-#define PURPLE "\033[0;35m"; // PURPLE
-#define CYAN   "\033[0;36m"; // CYAN
-#define WHITE  "\033[0;37m"; // WHITE
-
-// when cout
-std::cout << RED << "plaintext" << RESET;
-```
-
 ### vim
 
 ```shell
@@ -78,17 +63,6 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/p
 # python
 sudo apt install python3.12 python3.12-venv python3-pip python3-virtualenv
 python3 -m venv ~/venv
-
-# vmware
-sudo apt install open-vm-tools open-vm-tools-desktop
-cd && rm -rf ~/.bash_history ~/.bash_logout  ~/.bash_profile ~/.bashrc ~/.profile ~/.shell.pre-oh-my-zsh *.tar.gz
-
-# repair network
-sudo lshw -c network && \
-sudo service NetworkManager stop && \
-sudo rm /var/lib/NetworkManager/NetworkManager.state && \
-sudo vim /etc/NetworkManager/NetworkManager.conf # managed=true
-sudo service NetworkManager start
 
 # nvm ls-remote
 ```
@@ -171,6 +145,7 @@ autoMemoryReclaim=gradual # disabled|dropcache|gradual
 Remote Synchronous Copy
 
 ```sh
+# tiancheng@yudt12#$
 rsync [-r] <local-src> -e 'ssh -p <remote-port>' tiancheng.hang@221.226.84.186:<remote-dst>
 rsync [-r] -e 'ssh -p <remote-port>' tiancheng.hang@221.226.84.186:<remote-src> <local-dst>
 # sample
@@ -186,6 +161,7 @@ rsync -e 'ssh -p 18022' tiancheng.hang@221.226.84.186:~/screenlog.0 # src
 secure copy
 
 ```sh
+# tiancheng@yudt12#$
 scp [-r] -P <remote-port> <local-src> tiancheng.hang@221.226.84.186:<remote-dest>
 scp [-r] -P <remote-port> tiancheng.hang@221.226.84.186:<remote-src> <local-dst>
 # sample
@@ -525,15 +501,14 @@ sudo apt install iperf3
 
 ```sh
 # 发送
-iperf3 -c localhost -p 3300 -i 1 -t 60
+iperf3 -c localhost \ # client
+       -p 3300      \ # port
+       -i 1         \ # interval
+       -t 60        \ # time (s)
+       -l 8K          # length
 # 监听
-iperf3 -s -p 3302
-```
-
-### ufw
-
-```sh
-
+iperf3 -s      \ # server
+       -p 3302   # port
 ```
 
 ### iptables
@@ -604,23 +579,20 @@ sysctl net.ipv4.tcp_congestion_control
 
 ### tc (Traffic Control)
 
-| 参数       | 说明                        |
-| ---------- | --------------------------- |
-| tc         | 流量控制工具                |
-| qdisc      | 排队规则                    |
-| add        | 添加新的排队规则            |
-| dev eno3   | 指定网络接口卡为 eno3       |
-| root       | 网络接口卡的根队列          |
-| netem      | 网络 emulator，模拟网络状况 |
-| delay 5ms  | 网络时延为 5ms              |
-| loss 0.01% | 数据包丢失率为 0.01%        |
+| 参数       | 说明                     |
+| ---------- | ------------------------ |
+| tc         | traffic control          |
+| qdisc      | 排队规则                 |
+| add        | 添加新的排队规则         |
+| dev lo     | 指定网络接口卡为 lo      |
+| root       | 网络接口卡的根队列       |
+| netem      | network traffic emulator |
+| delay 5ms  | 时延为 5ms               |
+| loss 0.01% | 丢包率为 0.01%           |
 
 ```shell
-
 sudo tc qdisc del dev eno3 root && \
-sudo tc qdisc del dev eno4 root && \
-sudo tc qdisc add dev eno3 root netem delay 5ms loss 0.01% && \
-sudo tc qdisc add dev eno4 root netem delay 5ms loss 0.01%
+sudo tc qdisc add dev eno3 root netem delay 5ms loss 0.01%
 
 # 暂时修改 TCP 拥塞控制算法
 sudo sysctl -w net.ipv4.tcp_congestion_control=cubic/bbr
@@ -630,4 +602,30 @@ sysctl net.ipv4.tcp_congestion_control
 sudo tc qdisc add dev lo root netem delay 5ms loss 0.01%
 # 删除本机环回的时延和丢包率
 sudo tc qdisc del dev lo root
+```
+
+perf 性能测试
+
+```shell
+sudo apt install linux-tools-generic linux-cloud-tools-generic
+sudo rm -rf /usr/bin/perf
+ln -s /usr/lib/linux-tools/<version>-generic/perf /usr/bin/perf
+
+git clone --depth 1 https://github.com/brendangregg/FlameGraph.git
+# 使用 perf 记录 program 的运行信息
+perf record -e cycles -a --call-graph dwarf -d -- <program> [args]
+# 使用 perf script 解析 perf.data
+perf script -i perf.data &> perf.unfold
+# 折叠 perf.unfold 的符号
+./FlameGraph/stackcollapse-perf.pl perf.unfold &> perf.folded
+# 生成 svg 图
+./FlameGraph/flamegraph.pl perf.folded > perf.svg
+```
+
+### clang
+
+sudo apt install llvm clang clang-format
+
+```shell
+clang-format --style=google -dump-config > ./.clang-format
 ```

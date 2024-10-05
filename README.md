@@ -6,15 +6,11 @@
 
 [Git](./git.md)
 
-[LaTeX](./latex.md)
-
 [Linux](./linux.md)
 
 [MySQL](./mysql.md)
 
 [Operation System](./operation_system.md)
-
-[RabbitMQ](./rabbitmq.md)
 
 [Redis](./redis.md)
 
