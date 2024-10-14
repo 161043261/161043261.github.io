@@ -1,0 +1,14 @@
+Host vmware
+  HostName 192.168.220.132
+  User user
+
+Host proxy
+  HostName 221.226.84.186
+  User tiancheng.hang
+  Port 18022
+  ForwardAgent yes
+
+Host server
+  HostName 172.21.1.11
+  User yudt
+  ProxyJump proxy
