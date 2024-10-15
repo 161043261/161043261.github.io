@@ -34,7 +34,7 @@ set number
 
 ### Ubuntu-24.04
 
-```shell
+````shell
 # WSL
 wsl --install -d Ubuntu-24.04
 wsl --list [--online]
@@ -95,7 +95,7 @@ ZSH_THEME="ys"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source "$ZSH/oh-my-zsh.sh"
 export EDITOR="vim"
-```
+````
 
 ### ssh
 

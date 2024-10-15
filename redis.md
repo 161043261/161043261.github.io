@@ -7,4 +7,3 @@ sudo systemctl restart redis-server
 ```
 
 ## 使用 docker 启动 redis
-

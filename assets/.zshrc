@@ -6,17 +6,17 @@ source "$ZSH/oh-my-zsh.sh"
 export EDITOR="vim"
 
 # user
-socket="172.20.10.5:7890"
+socket="10.163.132.21:7890"
 export HTTP_PROXY=http://$socket
 export HTTPS_PROXY=http://$socket
 export ALL_PROXY=socks5://$socket
 export PATH="$HOME/.local:$PATH"
 
 # c cpp
-export CC=$(which clang)
-export CXX=$(which clang++)
+export CC="/usr/bin/clang"
+export CXX="/usr/bin/clang++"
 export CMAKE_GENERATOR="Ninja"
-alias cmaker="rm -rf build && mkdir build && cd build && cmake .."
+# ln /mnt/c/Users/admin $HOME/
 
 # go
 export GOPATH="$HOME/go"
