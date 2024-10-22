@@ -1,0 +1,143 @@
+{
+    "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4}",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "chat.editor.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "chat.editor.fontSize": 16,
+    "cmake.cmakePath": "/usr/bin/cmake",
+    "cmake.configureOnOpen": false,
+    "cmake.showOptionsMovedNotification": false,
+    "debug.console.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "debug.console.fontSize": 16,
+    "debug.onTaskErrors": "abort",
+    "editor.codeLensFontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "editor.experimentalInlineEdit.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "editor.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "editor.fontSize": 16,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "editor.indentSize": "tabSize",
+    "editor.inlayHints.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "editor.inlayHints.fontSize": 16,
+    "editor.inlineSuggest.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "editor.minimap.sectionHeaderFontSize": 16,
+    "editor.mouseWheelZoom": true,
+    "editor.suggestFontSize": 16,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.autoSave": "afterDelay",
+    "git.path": "/usr/bin/git",
+    "markdown.preview.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "markdown.preview.fontSize": 16,
+    "notebook.formatOnCellExecution": true,
+    "notebook.formatOnSave.enabled": true,
+    "notebook.markup.fontSize": 16,
+    "notebook.output.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "notebook.output.fontSize": 16,
+    "scm.inputFontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "scm.inputFontSize": 16,
+    "screencastMode.fontSize": 24,
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+    "security.workspace.trust.untrustedFiles": "open",
+    // "terminal.external.windowsExec": "C:/Windows/System32/wsl.exe",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.fontFamily": "Iosevka SS06, HYWenHei, LXGW WenKai Mono",
+    "terminal.integrated.fontSize": 16,
+    "python.defaultInterpreterPath": "/home/user/venv/bin/python",
+    "git.autofetch": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "editor.fontLigatures": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "files.eol": "\n",
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "remote.SSH.remotePlatform": {
+        "221.226.84.186": "linux",
+        "192.168.220.132": "linux",
+        "server": "linux"
+    },
+    "explorer.confirmPasteNative": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "git.openRepositoryInParentFolders": "always",
+    "settingsSync.ignoredExtensions": [
+        "ms-vscode-remote.remote-wsl"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+        "source.organizeImports": "always"
+    },
+    "redhat.telemetry.enabled": true,
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
+    },
+    "terminal.integrated.env.windows": {
+        "GRAALVM_HOME": "/home/user/.sdkman/candidates/java/current",
+        "JAVA_HOME": "/home/user/.sdkman/candidates/java/current",
+        "PATH": "/home/user/.sdkman/candidates/java/current/bin;${env:PATH}"
+    },
+    "java.jdt.ls.java.home": "/home/user/.sdkman/candidates/java/current",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/home/user/.sdkman/candidates/java/current",
+            "default": true
+        }
+    ],
+    "maven.terminal.customEnv": [
+        {
+            "environmentVariable": "JAVA_HOME",
+            "value": "/home/user/.sdkman/candidates/java/current"
+        }
+    ],
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "editor.minimap.enabled": false,
+    "files.associations": {
+        "*.txt": "plaintext"
+    },
+    "makefile.configureOnOpen": true,
+    "workbench.iconTheme": "catppuccin-latte",
+    "[dockercompose]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    },
+    "workbench.colorTheme": "Default Light Modern",
+    "[go]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "jdk.jdkhome": "/home/user/.sdkman/candidates/java/current"
+}
