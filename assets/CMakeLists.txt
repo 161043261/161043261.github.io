@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(cpp-learn)
+project(cpp-playground)
 
 # 指定 c 语言级别
 set(CMAKE_C_STANDARD 17)
@@ -11,15 +11,14 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 使用 clang
-message("export CC=/usr/bin/clang")
+# set(CMAKE_C_COMPILER gcc)
 set(CMAKE_C_COMPILER clang)
 
 # 使用 clang++
-message("export CXX=/usr/bin/clang++")
+# set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_COMPILER clang++)
 
 # 使用 ninja
-message("export CMAKE_GENERATOR=Ninja")
 set(CMAKE_GENERATOR Ninja)
 
 # 设置 c 编译选项
@@ -30,9 +29,14 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O1")
 # set(CMAKE_CXX_FLAGS "-Wall -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O1")
 
+# 查找 boost
+# find_package(Boost REQUIRED)
+
+# 查找 gtest (google test)
+find_package(GTest REQUIRED)
+
 # 使用 ctest
 include(CTest)
-find_package(GTest REQUIRED)
 enable_testing()
 
 # 使用 clang-format
@@ -47,11 +51,15 @@ else ()
     message(WARNING "clang-format not found")
 endif ()
 
-# add_executable 添加可执行文件
+# 添加可执行文件
+add_executable(auto_ptr ./src/auto_ptr.cpp)
+add_executable(solution ./src/solution.cpp)
 
-# target_link_libraries 链接 gtest 库
+# 链接 ??? 库
+target_link_libraries(auto_ptr GTest::gtest_main)
 
-# gtest_discover_test 发现 ctest
+# gtest (google test)
+gtest_discover_tests(auto_ptr)
 
 # -S ./src   指定源代码目录为 ./src 目录
 # -B ./build 指定构建目录为 ./build 目录
