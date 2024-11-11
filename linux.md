@@ -52,10 +52,9 @@ firewalld \
 gdb git golang-go \
 iperf3 \
 linux-tools-generic linux-cloud-tools-generic llvm \
-maven \
 net-tools ninja-build \
 openssh-server \
-pkg-config python3.12 python3.12-venv python3-pip python3-virtualenv \
+pkg-config \
 tree \
 vim \
 wget \
@@ -72,8 +71,8 @@ git config --global core.filemode false && \
 ssh-keygen -t rsa -C 'yukino161043261@gmail.com'
 
 # zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions && \
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
 # 其他
