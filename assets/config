@@ -1,5 +1,5 @@
-Host vmware
-  HostName 192.168.220.132
+Host eva-vm
+  HostName 192.168.220.137
   User user
 
 Host proxy

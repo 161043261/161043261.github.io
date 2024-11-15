@@ -1,6 +1,6 @@
 ## index
 
-[Computer Networking](./computer_networking.md)
+[Computer Network](./computer_network.md)
 
 [Docker](./docker.md)
 
@@ -11,8 +11,6 @@
 [MySQL](./mysql.md)
 
 [Operation System](./operation_system.md)
-
-[Redis](./redis.md)
 
 ```shell
 # macos
