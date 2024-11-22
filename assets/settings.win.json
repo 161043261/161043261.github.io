@@ -1,24 +1,22 @@
 {
   "C_Cpp.clang_format_style": "Google",
-  "C_Cpp.default.compilerPath": "C:/Users/admin/AppData/Local/Programs/CLion/bin/mingw/bin/g++.exe",
-  "chat.editor.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "chat.editor.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "chat.editor.fontSize": 16,
-  "cmake.cmakePath": "C:/Users/admin/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cmake.exe",
   "cmake.configureOnOpen": false,
   "cmake.showOptionsMovedNotification": false,
-  "debug.console.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "debug.console.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "debug.console.fontSize": 16,
   "debug.onTaskErrors": "abort",
-  "editor.codeLensFontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
-  "editor.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "editor.codeLensFontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "editor.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "editor.fontSize": 16,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": false,
   "editor.formatOnType": false,
   "editor.indentSize": "tabSize",
-  "editor.inlayHints.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "editor.inlayHints.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "editor.inlayHints.fontSize": 16,
-  "editor.inlineSuggest.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "editor.inlineSuggest.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "editor.minimap.sectionHeaderFontSize": 16,
   "editor.mouseWheelZoom": true,
   "editor.suggestFontSize": 16,
@@ -26,33 +24,31 @@
   "explorer.confirmDragAndDrop": false,
   "files.autoSave": "afterDelay",
   "git.path": "C:/Program Files/git/bin/git",
-  "markdown.preview.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "markdown.preview.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "markdown.preview.fontSize": 16,
   "notebook.formatOnCellExecution": true,
   "notebook.formatOnSave.enabled": true,
   "notebook.markup.fontSize": 16,
-  "notebook.output.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "notebook.output.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "notebook.output.fontSize": 16,
-  "scm.inputFontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "scm.inputFontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "scm.inputFontSize": 16,
   "screencastMode.fontSize": 24,
-  "security.allowedUNCHosts": [
-    "wsl.localhost"
-  ],
+  "security.allowedUNCHosts": ["wsl.localhost"],
   "security.workspace.trust.untrustedFiles": "open",
   "terminal.external.windowsExec": "C:/Windows/System32/wsl.exe",
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "terminal.integrated.fontFamily": "Iosevka SS06, LXGW WenKai Mono, Sarasa Mono SC",
+  "terminal.integrated.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
   "terminal.integrated.fontSize": 16,
   "python.defaultInterpreterPath": "C:/Users/admin/AppData/Local/Programs/Python/Python312/python",
   "git.autofetch": true,
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.fontLigatures": true,
   "[python]": {
-    "editor.defaultFormatter": "ms-python.autopep8"
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "files.eol": "\n",
   "cmake.pinnedCommands": [
@@ -60,18 +56,16 @@
     "workbench.action.tasks.runTask"
   ],
   "remote.SSH.remotePlatform": {
-    "221.226.84.186": "linux",
     "192.168.220.132": "linux",
-    "server": "linux",
-    "eva-vm": "linux"
+    "eva-vm": "linux",
+    "srv": "linux"
   },
   "explorer.confirmPasteNative": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "git.openRepositoryInParentFolders": "always",
-  "settingsSync.ignoredExtensions": [
-    "ms-vscode-remote.remote-wsl"
-  ],
+  "settingsSync.ignoredExtensions": ["ms-vscode-remote.remote-wsl"],
   "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
     "source.fixAll": "always",
     "source.organizeImports": "always"
   },
@@ -102,28 +96,28 @@
     "editor.defaultFormatter": "Vue.volar"
   },
   "terminal.integrated.env.windows": {
-    "GRAALVM_HOME": "C:/Program Files/Microsoft/jdk-21.0.5.11-hotspot",
-    "JAVA_HOME": "C:/Program Files/Microsoft/jdk-21.0.5.11-hotspot",
-    "PATH": "C:/Program Files/Microsoft/jdk-21.0.5.11-hotspot/bin;${env:PATH}"
+    "JAVA_HOME": "C:/Users/admin/graalvm-jdk-21",
+    "PATH": "C:/Users/admin/graalvm-jdk-21/bin;${env:PATH}"
   },
-  "java.jdt.ls.java.home": "C:/Program Files/Microsoft/jdk-21.0.5.11-hotspot",
+  "java.jdt.ls.java.home": "C:/Users/admin/graalvm-jdk-21",
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-21",
-      "path": "C:/Program Files/Microsoft/jdk-21.0.5.11-hotspot",
+      "path": "C:/Users/admin/graalvm-jdk-21",
       "default": true
     }
   ],
   "maven.terminal.customEnv": [
     {
       "environmentVariable": "JAVA_HOME",
-      "value": "C:/Program Files/Microsoft/jdk-21.0.5.11-hotspot"
+      "value": "C:/Users/admin/graalvm-jdk-21"
     }
   ],
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "editor.minimap.enabled": false,
   "files.associations": {
-    "*.txt": "plaintext"
+    "*.txt": "plaintext",
+    "*.html": "html"
   },
   "makefile.configureOnOpen": true,
   "workbench.iconTheme": "catppuccin-latte",
@@ -141,9 +135,14 @@
     }
   },
   "java.editor.reloadChangedSources": "auto",
-  "jdk.jdkhome": "c:\\Program Files\\Microsoft\\jdk-21.0.5.11-hotspot",
+  "jdk.jdkhome": "C:/Users/admin/graalvm-jdk-21",
   "workbench.editorAssociations": {
     "*.class": "default"
   },
+  "vscode-edge-devtools.webhintInstallNotification": true,
   "workbench.colorTheme": "Default Light Modern",
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

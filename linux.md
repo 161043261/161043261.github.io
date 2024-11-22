@@ -25,36 +25,27 @@ esc        # 切换到命令模式
 :q!        # 强制退出
 ```
 
-```sh
-# ~/.vimrc
-set cursorline
-set mouse=a
-set number
-```
-
-### Ubuntu-24.04
+### Ubuntu
 
 ````shell
-# WSL
-wsl --install -d Ubuntu-24.04
 wsl --list [--online]
-wsl --set-default Ubuntu-24.04
+wsl --install -d Ubuntu
+wsl --set-default Ubuntu
 wsl --shutdown
-# wsl --unregister Ubuntu-24.04
+# wsl --unregister Ubuntu
 
-# sudo vim /etc/apt/sources.list.d/ubuntu.sources
 sudo apt update && sudo apt upgrade && sudo apt-get update && sudo apt-get upgrade
 sudo apt install \
 apt-transport-https \
 build-essential \
 ca-certificates clang clang-format cmake curl \
 firewalld \
-gdb git golang-go \
+gdb git golang-go googletest \
 iperf3 \
-linux-tools-generic linux-cloud-tools-generic llvm \
+llvm \
 net-tools ninja-build \
 openssh-server \
-pkg-config \
+pkg-config python3 python3-pip python3-venv \
 tree \
 vim \
 wget \
@@ -70,31 +61,36 @@ git config --global init.defaultBranch main && \
 git config --global core.filemode false && \
 ssh-keygen -t rsa -C 'yukino161043261@gmail.com'
 
+# proxy
+vim ~/.bashrc
+
+proxy="10.163.232.45:7890"
+export HTTP_PROXY=http://$proxy
+export HTTPS_PROXY=http://$proxy
+export ALL_PROXY=socks5://$proxy
+
+source ~/.bashrc
+
 # zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions && \
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-# 其他
-python3 -m venv ~/venv
-# sdkman
+# python3
+python3 -m venv ~/python3
+
+# sdkman for java
 curl -s "https://get.sdkman.io" | bash
 sdk install java 21.0.3-graal
-# nvm
+
+# nvm for nodejs
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 nvm ls-remote
 npm install typescript -g
 
-### ~/.zshrc
-
-```shell
-# zsh
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="ys"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-source "$ZSH/oh-my-zsh.sh"
-export EDITOR="vim"
-````
+# pnpm
+curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 ### ssh
 
@@ -586,3 +582,4 @@ perf script -i perf.data &> perf.unfold
 ```shell
 clang-format --style=google -dump-config > ./.clang-format
 ```
+````

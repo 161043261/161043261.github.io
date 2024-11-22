@@ -1,13 +1,13 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.21)
 
 project(cpp-playground)
 
 # 指定 c 语言级别
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # 指定 c++ 语言级别
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 使用 clang
@@ -22,20 +22,18 @@ set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_GENERATOR Ninja)
 
 # 设置 c 编译选项
-# set(CMAKE_C_FLAGS "-Wall -O3")
+# set(CMAKE_C_FLAGS "-Wall -O1")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O1")
 
 # 设置 c++ 编译选项
-# set(CMAKE_CXX_FLAGS "-Wall -O3")
+# set(CMAKE_CXX_FLAGS "-Wall -O1")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O1")
 
-# 查找 boost
+# 查找 boost (sudo apt install libboost-all-dev)
 # find_package(Boost REQUIRED)
 
-# 查找 gtest (google test)
+# 查找 gtest (sudo apt install googletest)
 find_package(GTest REQUIRED)
-
-# 使用 ctest
 include(CTest)
 enable_testing()
 
@@ -55,10 +53,8 @@ endif ()
 add_executable(auto_ptr ./src/auto_ptr.cpp)
 add_executable(solution ./src/solution.cpp)
 
-# 链接 ??? 库
+# googletest
 target_link_libraries(auto_ptr GTest::gtest_main)
-
-# gtest (google test)
 gtest_discover_tests(auto_ptr)
 
 # -S ./src   指定源代码目录为 ./src 目录

@@ -10,8 +10,6 @@
 
 [MySQL](./mysql.md)
 
-[Operation System](./operation_system.md)
-
 ```shell
 # macos
 rm -rf ~/Library/Caches/*
