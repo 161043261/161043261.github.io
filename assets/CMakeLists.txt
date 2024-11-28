@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(cpp-playground)
+# 指定项目名
+project(cc-playground)
 
 # 指定 c 语言级别
 set(CMAKE_C_STANDARD 17)
@@ -22,18 +23,17 @@ set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_GENERATOR Ninja)
 
 # 设置 c 编译选项
-# set(CMAKE_C_FLAGS "-Wall -O1")
+# set(CMAKE_C_FLAGS "-Wall -O3")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O1")
 
 # 设置 c++ 编译选项
-# set(CMAKE_CXX_FLAGS "-Wall -O1")
+# set(CMAKE_CXX_FLAGS "-Wall -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O1")
 
-# 查找 boost (sudo apt install libboost-all-dev)
-# find_package(Boost REQUIRED)
-
-# 查找 gtest (sudo apt install googletest)
+# 查找 gtest 库
 find_package(GTest REQUIRED)
+
+# 使用 ctest
 include(CTest)
 enable_testing()
 
@@ -52,9 +52,12 @@ endif ()
 # 添加可执行文件
 add_executable(auto_ptr ./src/auto_ptr.cpp)
 add_executable(solution ./src/solution.cpp)
+add_executable(closure ./src/closure.cpp)
+add_executable(backtrack ./src/backtrack.cpp)
 
-# googletest
+# 链接 gtest 库
 target_link_libraries(auto_ptr GTest::gtest_main)
+
 gtest_discover_tests(auto_ptr)
 
 # -S ./src   指定源代码目录为 ./src 目录
