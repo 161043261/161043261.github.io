@@ -1,7 +1,13 @@
-Host eva-vm
-  HostName 192.168.220.137
+Host vm
+  HostName 192.168.220.140
   User user
 
-Host srv
+# wangjc1234
+Host wjc
   HostName 10.166.33.254
   User wjc
+
+# Admin12#$
+Host admins
+  HostName 10.166.33.254
+  User admins

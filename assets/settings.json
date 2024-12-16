@@ -1,22 +1,21 @@
 {
-  "C_Cpp.clang_format_style": "Google",
-  "chat.editor.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "chat.editor.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "chat.editor.fontSize": 16,
   "cmake.configureOnOpen": false,
   "cmake.showOptionsMovedNotification": false,
-  "debug.console.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "debug.console.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "debug.console.fontSize": 16,
   "debug.onTaskErrors": "abort",
-  "editor.codeLensFontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
-  "editor.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "editor.codeLensFontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
+  "editor.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "editor.fontSize": 16,
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "editor.indentSize": "tabSize",
-  "editor.inlayHints.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "editor.inlayHints.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "editor.inlayHints.fontSize": 16,
-  "editor.inlineSuggest.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "editor.inlineSuggest.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "editor.minimap.sectionHeaderFontSize": 16,
   "editor.mouseWheelZoom": true,
   "editor.suggestFontSize": 16,
@@ -24,14 +23,14 @@
   "explorer.confirmDragAndDrop": false,
   "files.autoSave": "afterDelay",
   "git.path": "C:/Program Files/git/bin/git",
-  "markdown.preview.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "markdown.preview.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "markdown.preview.fontSize": 16,
   "notebook.formatOnCellExecution": true,
   "notebook.formatOnSave.enabled": true,
   "notebook.markup.fontSize": 16,
-  "notebook.output.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "notebook.output.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "notebook.output.fontSize": 16,
-  "scm.inputFontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "scm.inputFontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "scm.inputFontSize": 16,
   "screencastMode.fontSize": 24,
   "security.allowedUNCHosts": ["wsl.localhost"],
@@ -39,7 +38,7 @@
   "terminal.external.windowsExec": "C:/Windows/System32/wsl.exe",
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "terminal.integrated.fontFamily": "JS, LXGW WenKai Mono, Microsoft YaHei",
+  "terminal.integrated.fontFamily": "Harmony, LXGW WenKai Mono, Sarasa Mono SC",
   "terminal.integrated.fontSize": 16,
   "python.defaultInterpreterPath": "C:/Users/admin/AppData/Local/Programs/Python/Python312/python",
   "git.autofetch": true,
@@ -58,7 +57,9 @@
   "remote.SSH.remotePlatform": {
     "192.168.220.132": "linux",
     "eva-vm": "linux",
-    "srv": "linux"
+    "srv": "linux",
+    "vm": "linux",
+    "wjc": "linux"
   },
   "explorer.confirmPasteNative": false,
   "diffEditor.ignoreTrimWhitespace": false,
@@ -70,9 +71,6 @@
     "source.organizeImports": "always"
   },
   "redhat.telemetry.enabled": true,
-  "[java]": {
-    "editor.defaultFormatter": "redhat.java"
-  },
   "editor.unicodeHighlight.ambiguousCharacters": false,
   "editor.unicodeHighlight.invisibleCharacters": false,
   "[typescript]": {
@@ -95,24 +93,6 @@
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
   },
-  "terminal.integrated.env.windows": {
-    "JAVA_HOME": "C:/Users/admin/graalvm-jdk-21",
-    "PATH": "C:/Users/admin/graalvm-jdk-21/bin;${env:PATH}"
-  },
-  "java.jdt.ls.java.home": "C:/Users/admin/graalvm-jdk-21",
-  "java.configuration.runtimes": [
-    {
-      "name": "JavaSE-21",
-      "path": "C:/Users/admin/graalvm-jdk-21",
-      "default": true
-    }
-  ],
-  "maven.terminal.customEnv": [
-    {
-      "environmentVariable": "JAVA_HOME",
-      "value": "C:/Users/admin/graalvm-jdk-21"
-    }
-  ],
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "editor.minimap.enabled": false,
   "files.associations": {
@@ -120,7 +100,6 @@
     "*.html": "html"
   },
   "makefile.configureOnOpen": true,
-  "workbench.iconTheme": "catppuccin-latte",
   "[dockercompose]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
@@ -134,15 +113,29 @@
       "source.organizeImports": "explicit"
     }
   },
-  "java.editor.reloadChangedSources": "auto",
-  "jdk.jdkhome": "C:/Users/admin/graalvm-jdk-21",
   "workbench.editorAssociations": {
     "*.class": "default"
   },
   "vscode-edge-devtools.webhintInstallNotification": true,
-  "workbench.colorTheme": "Default Light Modern",
   "diffEditor.hideUnchangedRegions.enabled": true,
   "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.iconTheme": "catppuccin-latte",
+  "editor.tabSize": 2,
+  "workbench.editor.wrapTabs": true,
+  "clangd.detectExtensionConflicts": false,
+  "notebook.output.wordWrap": true,
+  "jdk.jdkhome": "c:\\Users\\admin\\graalvm-jdk-21",
+  "[java]": {
+    "editor.indentSize": "tabSize",
+    "editor.defaultFormatter": "redhat.java"
+  },
+  "terminal.integrated.env.windows": {},
+  "workbench.colorTheme": "Default Light Modern",
+  "terminal.integrated.env.linux": {},
+  "console-ninja.featureSet": "Community",
+  "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

@@ -577,20 +577,3 @@ perf script -i perf.data &> perf.unfold
 ```shell
 clang-format --style=google -dump-config > ./.clang-format
 ```
-
-#### V8
-
-```shell
-cd
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-# vim ~/.zshrc
-export PATH="$HOME/depot_tools:$PATH"
-gclient sync
-cd v8
-./build/install-build-deps.sh
-tools/dev/v8gen.py x64.release
-ninja -C out.gn/x64.release
-cd out.gn/x64.release
-./d8
-# console.log('Hello World');
-```

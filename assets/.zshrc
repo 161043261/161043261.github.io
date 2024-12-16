@@ -6,7 +6,7 @@ source "$ZSH/oh-my-zsh.sh"
 export EDITOR="vim"
 
 # user
-proxy="10.163.153.106:7890"
+proxy="127.0.0.1:7890"
 export HTTP_PROXY=http://$proxy
 export HTTPS_PROXY=http://$proxy
 export ALL_PROXY=socks5://$proxy
@@ -38,13 +38,15 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-export PATH="$HOME/emsdk:$PATH"
-export PATH="$HOME/emsdk/upstream/emscripten:$PATH"
-
 # bun completions
 [ -s "/home/user/.bun/_bun" ] && source "/home/user/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-. "/home/user/.deno/env"%
+
+. "/home/user/.deno/env"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
