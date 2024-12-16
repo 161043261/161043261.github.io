@@ -43,3 +43,11 @@ vscode
 - **docs**: 更新文档, 例如 README.md
 - **perf**: performance 性能优化
 - **chore**: 定期代码维护
+
+- **feat**: Introduce new features
+- **fix**: Bug fix
+- **docs**: Update documentations
+- **style**: Updates related to styling
+- **refactor**: Refactor code
+- **test**: Update code related to testing
+- **chore**: Regular code maintenance
