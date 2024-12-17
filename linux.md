@@ -45,12 +45,15 @@ iperf3 \
 llvm \
 net-tools ninja-build \
 openssh-server \
-pkg-config python3 python3-pip python3-venv \
+pkg-config \
 tree \
 vim \
 wget \
 zip zsh \
 --fix-missing -y
+
+sudo apt install rustc cargo cargo-doc llvm lld clang -y
+sudo apt install nodejs npm -y
 
 # git
 git config --global user.name Tiancheng && \
@@ -78,6 +81,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugi
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
 # python3
+sudo apt install python3 python3-pip python3-venv -y
 python3 -m venv ~/python3
 
 # nvm for nodejs

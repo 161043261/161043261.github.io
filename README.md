@@ -35,19 +35,19 @@ vscode
 3.  单步调试：逐行调试代码，遇到函数调用时，跳入函数体内部，继续逐行调试代码。
 4.  单步跳出：在函数体内部时，放行（运行函数的剩余代码），跳出函数体，跳到函数调用的下一行。
 
-- **feat**: feature 引入新功能
+- **feat**: 引入新功能
 - **fix**: 错误修正
-- **style**: 更新代码样式, 例如使用 clang-format 或 prettier
+- **style**: 更新样式, 例如 clang-format 或 prettier
 - **refactor**: 重构代码
-- **test**: 测试代码
-- **docs**: 更新文档, 例如 README.md
-- **perf**: performance 性能优化
+- **test**: 创建/更新测试, 例如 jtest
+- **docs**: 创建/更新文档, 例如 README.md
+- **perf**: 性能优化
 - **chore**: 定期代码维护
-
-- **feat**: Introduce new features
-- **fix**: Bug fix
-- **docs**: Update documentations
-- **style**: Updates related to styling
-- **refactor**: Refactor code
-- **test**: Update code related to testing
-- **chore**: Regular code maintenance
+- feat: Introduce new feature
+- fix: Bug fix
+- style: Update styling
+- refactor: Refactor code
+- test: Create/Update testing
+- docs: Create/Update docs
+- perf: Performance Optimization
+- chore: Regular code maintenance
