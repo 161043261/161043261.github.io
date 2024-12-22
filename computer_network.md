@@ -1,4 +1,4 @@
-# Computer Networking
+# Computer Network
 
 WAN: Wide Area Network
 LAN: Local Area Network

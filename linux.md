@@ -42,7 +42,7 @@ ca-certificates clang clang-format clangd cmake curl \
 firewalld \
 gdb git golang-go \
 iperf3 \
-llvm \
+lld llvm \
 net-tools ninja-build \
 openssh-server \
 pkg-config \
@@ -52,7 +52,6 @@ wget \
 zip zsh \
 --fix-missing -y
 
-sudo apt install rustc cargo cargo-doc llvm lld clang -y
 sudo apt install nodejs npm -y
 
 # git
@@ -120,8 +119,6 @@ autoProxy=true
 dnsTunneling=true
 firewall=false
 networkingMode=mirrored
-autoMemoryReclaim=gradual # disabled|dropcache|gradual
-# hostAddressLoopback=true
 ```
 
 ### rsync

@@ -38,15 +38,4 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# bun completions
-[ -s "/home/user/.bun/_bun" ] && source "/home/user/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 . "/home/user/.deno/env"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
