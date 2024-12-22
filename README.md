@@ -2,7 +2,7 @@
 
 [Computer Network](./computer_network.md)
 
-[Docker](./docker.md)
+[Git & Docker](./git_and_docker.md)
 
 [Git](./git.md)
 
