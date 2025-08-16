@@ -5,7 +5,7 @@ build: ## Vitepress build
 	rm -rf ./.vitepress/dist
 	pnpm build
 
-.PHONY: chorex
+.PHONY: chore
 chore: ## Regular code maintenance
 	git add -A
 	git commit -m "chore: Regular code maintenance"
