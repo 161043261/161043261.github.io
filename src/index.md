@@ -16,11 +16,11 @@ hero:
       text: Algorithm
       link: /base/algorithm
     - theme: alt
-      text: React
-      link: /frontend/react
-    - theme: alt
       text: Vue
       link: /frontend/vue
+    - theme: alt
+      text: MySQL
+      link: /backend/mysql
 
 features:
   - title: Base

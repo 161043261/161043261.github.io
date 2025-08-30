@@ -29,9 +29,8 @@ export default defineConfig({
     nav: [
       { text: "Homepage", link: "/" },
       { text: "Network", link: "/base/network2" },
-      { text: "Algorithm", link: "/base/algorithm" },
-      { text: "React", link: "/frontend/react" },
       { text: "Vue", link: "/frontend/vue" },
+      { text: "MySQL", link: "/backend/mysql" },
     ],
     sidebar,
     socialLinks: [
