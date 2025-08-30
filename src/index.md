@@ -24,9 +24,9 @@ hero:
 
 features:
   - title: Base
-    details: JS/TS, Python, Go, C++, Linux, Network, Git
+    details: JS/TS, C++, Python, Algorithm, Linux, Network, Git
   - title: Frontend
-    details: HTML/CSS, npm/pnpm, Vue, vue-router, Pinia, React, react-router, Zustand, Webpack, Vite
+    details: HTML/CSS, npm/pnpm, Vue, vue-router, Pinia, React, react-router, Zustand, Vite, Webpack
   - title: Backend
-    details: Express.js, Nest.js, Fiber, MongoDB, MySQL, Redis, Kafka, Protobuf
+    details: Express.js, Nest.js, MongoDB, MySQL, Redis, Protobuf
 ---
