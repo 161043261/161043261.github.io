@@ -2,9 +2,9 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 hero:
-  name: ほんじつ
-  text: の
-  tagline: おんがく集
+  name: ほんじつの
+  text: おんがく集
+  tagline: <a href="/resume.pdf">About me</a>
   image:
     src: /index.jpg
     alt: index
