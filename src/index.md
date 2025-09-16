@@ -2,9 +2,9 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 hero:
-  name: sky
-  text: flower
-  tagline: sea
+  name: ほんじつ
+  text: の
+  tagline: おんがく集
   image:
     src: /index.jpg
     alt: index
