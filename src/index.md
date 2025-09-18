@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Network
-      link: /base/network2
+      link: /base/network
     - theme: brand
       text: Algorithm
       link: /base/algorithm

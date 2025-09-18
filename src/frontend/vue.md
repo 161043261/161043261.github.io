@@ -30,8 +30,8 @@ MVVM, Model-View-ViewModel
 
 ### 重写双向数据绑定
 
-- Vue2 的双向数据绑定基于 `Object.defineProperty()`; 创建一个 Vue 实例时, for...in 遍历 vm.data 中的所有属性, 使用 `Object.defineProperty()` 将属性转换为 getter 和 setter
-- Vue 的双向数据绑定基于 Proxy 代理对象
+- Vue2 的双向数据绑定基于 `Object.defineProperty()`; 创建一个 Vue 实例时, for...in 遍历 data 字段中的所有属性, 使用 `Object.defineProperty()` 将属性转换为 getter 和 setter
+- Vue3 的双向数据绑定基于 Proxy 代理对象
 
 优点
 

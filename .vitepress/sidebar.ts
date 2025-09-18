@@ -7,7 +7,6 @@ export default {
         { text: "Algorithm", link: "/base/algorithm" },
         { text: "Linux", link: "/base/linux" },
         { text: "Network", link: "/base/network" },
-        { text: "Network(2)", link: "/base/network2" },
         { text: "Git", link: "/base/git" },
       ],
     },

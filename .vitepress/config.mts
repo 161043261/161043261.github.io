@@ -24,7 +24,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Homepage", link: "/" },
-      { text: "Network", link: "/base/network2" },
+      { text: "Network", link: "/base/network" },
       { text: "Vue", link: "/frontend/vue" },
       { text: "MySQL", link: "/backend/mysql" },
     ],
