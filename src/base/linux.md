@@ -10,35 +10,34 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source "$ZSH/oh-my-zsh.sh"
 export EDITOR="vim"
 
-# user
-# proxy=?.?.?.?:?
-# proxy=$(ip route | grep 'default' | awk '{print $3}'):7890
+# proxy=127.0.0.1:7890
 # export HTTP_PROXY=http://$proxy
 # export HTTPS_PROXY=http://$proxy
 # export ALL_PROXY=socks5://$proxy
+
 # export PATH="$HOME/.local/bin:$PATH"
 
-# cc, cxx
+# C, C++
 export CC=clang
 export CXX=clang++
 export CMAKE_GENERATOR=Ninja
 
-# go
+# Go
 export GO111MODULE=on
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 
-# js, ts
+# JS, TS
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# python3
+# Python3
 export PATH="$HOME/venv/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/home/user/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -83,41 +82,28 @@ wsl --shutdown
 sudo apt update && sudo apt full-upgrade && \
 sudo apt-get update && sudo apt-get full-upgrade -y
 
+sudo apt autoclean && sudo apt autoremove
+
 sudo apt install \
 apt-transport-https \
 build-essential \
-ca-certificates clang clang-format clangd cmake curl \
+ca-certificates clang clang-format clang-tools clangd cmake curl \
 firewalld \
 gdb git \
 iperf3 \
 lld lldb llvm \
 net-tools ninja-build \
 openssh-server \
-pkg-config \
+pkg-config python3 python3-pip python3-venv \
 tree \
 vim \
 wget \
 zip zsh \
 --fix-missing -y
 
-# git
-git config --global user.name tianchenghang && \
-git config --global user.email 'yukino161043261@gmail.com' && \
-git config --global core.autocrlf false && \
-git config --global credential.helper store && \
-git config --global init.defaultBranch main && \
-git config --global core.filemode false && \
-ssh-keygen -t rsa -C 'yukino161043261@gmail.com'
-
 # zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions && \
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-
-# python3
-sudo apt install python3 python3-pip python3-venv -y
-python3 -m venv ~/python3
 ```
 
 ## ssh
@@ -127,7 +113,7 @@ python3 -m venv ~/python3
 cat ~/.ssh/id_rsa.pub | ssh who@?.?.?.? -p 22 "cat >> ~/.ssh/authorized_keys" && ssh who@?.?.?.? -p 22
 
 # vim ~/.ssh/config
-Host vm
+Host <alias>
   HostName ?.?.?.?
   User who
 ```
@@ -209,13 +195,6 @@ touch ./example.log && script -a ./example.log
 ls -as | sort -nr
 ```
 
-## ps
-
-```bash
-ps -au
-ps -ef
-```
-
 ## ping
 
 ```bash
@@ -238,13 +217,6 @@ curl -X POST -d 'char=0' https://ys.mihoyo.com/main/character/inazuma
 # 传输文件
 mkdir ys.mihoyo.com && \
 curl https://ys.mihoyo.com/main/character/inazuma\?char\=0 -o ./ys.mihoyo.com/index.html
-```
-
-## netstat
-
-```bash
-sudo netstat -tunlp
-sudo ss -tunlp
 ```
 
 ## iperf3
@@ -275,29 +247,6 @@ sudo systemctl disable ufw
 
 ```bash
 ln [-s] /path/to/src /path/to/dst
-```
-
-## tc
-
-| 参数       | 说明                     |
-| ---------- | ------------------------ |
-| tc         | traffic control          |
-| qdisc      | 排队规则                 |
-| dev lo     | 网络接口卡 lo            |
-| root       | 网络接口卡的根队列       |
-| netem      | network traffic emulator |
-| delay 5ms  | 时延 5ms                 |
-| loss 0.01% | 丢包率 0.01%             |
-
-```bash
-# 临时修改 tcp 拥塞控制算法
-sudo sysctl -w net.ipv4.tcp_congestion_control=cubic/bbr
-# 查看当前 tcp 拥塞控制算法
-sysctl net.ipv4.tcp_congestion_control
-# 设置本机环回的时延和丢包率
-sudo tc qdisc add dev lo root netem delay 5ms loss 0.01%
-# 删除本机环回的时延和丢包率
-sudo tc qdisc del dev lo root
 ```
 
 ## clang

@@ -2,8 +2,7 @@ export default {
   "/base/": [
     {
       items: [
-        { text: "JS/TS", link: "/base/languages/esnext" },
-        { text: "C++", link: "/base/languages/cpp" },
+        { text: "JS/TS", link: "/base/esnext" },
         { text: "Algorithm", link: "/base/algorithm" },
         { text: "Linux", link: "/base/linux" },
         { text: "Network", link: "/base/network" },

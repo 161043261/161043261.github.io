@@ -9,14 +9,6 @@ node ./index.js --env-file ./.env.development
 node ./index.js --env-file ./.env.production
 ```
 
-## 彩色打印
-
-```js
-// 彩色打印
-import { styleText } from "node:util";
-console.log(styleText("green", "Hello World"));
-```
-
 ## 事件循环
 
 JS 是单线程的
@@ -36,7 +28,7 @@ chrome 为每一个页面分配一个进程, 该进程是多线程的, 主要包
   - 网络线程: XMLHttpRequest, fetch 依赖网络线程
   - I/O 线程: 负责文件读写, postMessage 等
 
-单线程本质: JS 引擎线程 (主线程) 负责执行所有同步代码, 宏任务和微任务, 宏任务触发可能依赖其他线程
+单线程本质: JS 引擎线程 (主线程) 负责执行所有同步代码, 宏任务和微任务; 宏任务触发可能依赖其他线程
 
 ## 模板字符串
 
@@ -137,7 +129,7 @@ console.log(0);
 
 1. 处理用户事件: 例如 change, click, input 等
 2. 执行定时器回调函数
-3. 执行 requestAnimationFrame
+3. 执行 requestAnimationFrame 下一帧重绘、回流前, 执行传递的回调函数
 4. 回流和重绘: 回流 reflow, 有关宽高等, 性能开销大; 重绘 repaint, 有关颜色等, 性能开销小
 5. 如果有空闲时间, 则执行 requestIdleCallback (例如 idle 期间可以懒加载 JS 脚本)
 
@@ -170,8 +162,8 @@ v8 将堆内存分为新生代和老年代, 新生代中的对象存活时间较
 (() => {
   let a = {};
   let b = {};
-  a.ptr = b;
-  b.ptr = a;
+  a.refB = b;
+  b.refA = a;
 })();
 ```
 
@@ -255,7 +247,7 @@ process.memoryUsage().heapUsed; // 5e6
 
 ### 概述
 
-Web Worker 允许主线程创建 worker 线程 (不允许操作 DOM), worker 线程创建后, 就会始终运行, 不会被主线程打断
+Web Worker 允许主线程创建 worker 线程 (不允许操作 DOM), worker 线程创建后, 就会一直运行, 不会被主线程打断
 
 Web Worker 有以下限制
 
@@ -324,7 +316,7 @@ self.onmessage = function (ev) {
 - `Required<Type>` 所有字段必选
 - `Readonly<Type>` 所有字段只读
 - `Record<Key, Value>`
-- Pick, Exclude, Omit, ReturnType
+- keyof, Pick, Omit, Exclude, ReturnType
 
 ```ts
 // 接口
@@ -332,22 +324,25 @@ interface IAdd {
   (a: number, b: number): number;
 }
 
-// Pick
 interface IUser {
   name: string;
   age: number;
   gender: "male" | "female";
 }
 
+// keyof
+type TUserKeys = keyof IUser; // "name" | "age" | "gender"
+
+// Pick
 type TLgbt = Pick<IUser, "name" | "age">; // { name: string; age: number; }
+
+// Omit
+type TGender = Omit<IUser, "name" | "age">; // { gender: "male" | "female"; }
 
 // Exclude
 type TOptions = "A" | "B" | "C" | "D";
 type TError = "A" | "B";
 type TOk = Exclude<TOptions, TError>; // "C" | "D"
-
-// Omit
-type TGender = Omit<IUser, "name" | "age">; // { gender: "male" | "female"; }
 
 // ReturnType<Fn>
 const fn = (a: number, b: number) => [a, b];

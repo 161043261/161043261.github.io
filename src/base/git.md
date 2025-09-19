@@ -3,14 +3,14 @@
 ## 基础命令
 
 ```bash
-git config --global user.name yukino161043261 &&              \
-git config --global user.email 'yukino161043261@gmail.com' && \
-git config --global core.autocrlf false &&                    \
-git config --global credential.helper store &&                \
-git config --global init.defaultBranch main &&                \
+git config --global user.name tianchenghang &&       \
+git config --global user.email '161043261@qq.com' && \
+git config --global core.autocrlf false &&           \
+git config --global credential.helper store &&       \
+git config --global init.defaultBranch main &&       \
 git config --global core.filemode false
 
-ssh-keygen -t rsa -C 'yukino161043261@gmail.com'
+ssh-keygen -t rsa -C '161043261@qq.com'
 ```
 
 ```bash
@@ -30,26 +30,6 @@ git clone <mainmodule_url> --recurse-submodules
 git submodule init
 git submodule update
 git submodule update --init --recursive
-```
-
-## 搭建本机 git 服务器
-
-```bash
-sudo adduser git          # 添加 git 用户
-sudo usermod -aG sudo git # 将 git 用户添加到 sudo 组
-sudo passwd git           # 更新 git 用户的密码
-sudo userdel -r git       # 删除 git 用户
-
-su git
-cd
-git init --bare repo-name.git
-
-su user
-cd /path/to/repo-name
-git add .
-git commit -m 'Initial commit' # ./build.sh
-git remote add origin ssh://git@localhost/home/git/repo-name.git
-git push origin main --set-upstream
 ```
 
 ## branch (learnGitBranch)

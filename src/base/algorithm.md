@@ -3,11 +3,13 @@
 ## Node.js ACM 模式
 
 ```js
-const readline = require("node:readline");
-const rl = readline.createInterface({
+const { createInterface } = require("readline");
+
+const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
 rl.on("line", (line) => {
   console.log(line);
 });
@@ -15,15 +17,16 @@ rl.on("line", (line) => {
 
 ## 堆排序 (优先级队列)
 
+- 大/小根堆是满二叉树
+- 大根堆: 父节点 >= 左右子节点; 小根堆: 父节点 <= 左右子节点
+- 最后一个叶子节点的数组下标 `const lastLeafIdx = heapSize - 1;`
+- 最后一个叶子节点的父节点是最后一个非叶节点
+- 最后一个非叶节点的数组下标 `const lastNotLeafIdx = Math.floor((lastLeafIdx - 1) / 2)`
+- 从最后一个非叶节点开始, 构造大/小根堆
+
 ::: code-group
 
-```ts [堆排序 TS]
-// 大/小根堆是满二叉树
-// 大根堆: 父节点 >= 左右子节点; 小根堆: 父节点 <= 左右子节点
-// 最后一个叶子节点的数组下标 const lastLeafIdx = heapSize - 1;
-// 最后一个叶子节点的父节点是最后一个非叶节点
-// 最后一个非叶节点的数组下标 const lastNotLeafIdx = Math.floor((lastLeafIdx - 1) / 2)
-// 从最后一个非叶节点开始, 构造大/小根堆
+```ts [buildMaxHeap]
 function buildMaxHeap(nums: number[], heapSize: number) {
   const lastLeafIdx = heapSize - 1;
   const lastNotLeafIdx = Math.floor((lastLeafIdx - 1) / 2);
@@ -31,7 +34,9 @@ function buildMaxHeap(nums: number[], heapSize: number) {
     maxHeapify(nums, idx, heapSize);
   }
 }
+```
 
+```ts [buildMinHeap]
 function buildMinHeap(nums: number[], heapSize: number) {
   const lastLeafIdx = heapSize - 1;
   const lastNotLeafIdx = Math.floor((lastLeafIdx - 1) / 2);
@@ -39,7 +44,9 @@ function buildMinHeap(nums: number[], heapSize: number) {
     minHeapify(nums, idx, heapSize);
   }
 }
+```
 
+```ts [maxHeapify]
 /**
  *
  * @param nums nums.slice(0, heapSize) 大根堆节点数组
@@ -62,7 +69,9 @@ function maxHeapify(nums: number[], idx: number, heapSize: number) {
     maxHeapify(nums, childIdx, heapSize);
   }
 }
+```
 
+```ts [minHeapify]
 /**
  *
  * @param nums nums.slice(0, heapSize) 小根堆节点数组
@@ -83,61 +92,6 @@ function minHeapify(nums: number[], idx: number, heapSize: number) {
   if (childIdx !== idx) {
     [nums[idx], nums[childIdx]] = [nums[childIdx], nums[idx]];
     minHeapify(nums, childIdx, heapSize);
-  }
-}
-```
-
-```cpp [堆排序 Cpp]
-#include <utility> // swap
-#include <vector>
-
-using namespace std;
-
-void maxHeapify(vector<int> &nums, int idx, int heapSize) {
-  auto childIdx = idx;
-  auto left = idx * 2 + 1;
-  auto right = idx * 2 + 2;
-  if (left < heapSize && nums[left] > nums[childIdx]) {
-    childIdx = left;
-  }
-  if (right < heapSize && nums[right] > nums[childIdx]) {
-    childIdx = right;
-  }
-  if (childIdx != idx) {
-    swap(nums[idx], nums[childIdx]);
-    maxHeapify(nums, childIdx, heapSize);
-  }
-}
-
-void minHeapify(vector<int> &nums, int idx, int heapSize) {
-  auto childIdx = idx;
-  auto left = idx * 2 + 1;
-  auto right = idx * 2 + 2;
-  if (left < heapSize && nums[left] < nums[childIdx]) {
-    childIdx = left;
-  }
-  if (right < heapSize && nums[right] < nums[childIdx]) {
-    childIdx = right;
-  }
-  if (childIdx != idx) {
-    swap(nums[idx], nums[childIdx]);
-    minHeapify(nums, childIdx, heapSize);
-  }
-}
-
-void buildMaxHeap(vector<int> &nums, int heapSize) {
-  auto lastLeafIdx = heapSize - 1;
-  auto lastNotLeafIdx = (lastLeafIdx - 1) / 2;
-  for (auto idx = lastNotLeafIdx; idx >= 0; idx--) {
-    maxHeapify(nums, idx, heapSize);
-  }
-}
-
-void buildMinHeap(vector<int> &nums, int heapSize) {
-  auto lastLeafIdx = heapSize - 1;
-  auto lastNotLeafIdx = (lastLeafIdx - 1) / 2;
-  for (auto idx = lastNotLeafIdx; idx >= 0; idx--) {
-    minHeapify(nums, idx, heapSize);
   }
 }
 ```
@@ -269,10 +223,11 @@ console.log(demo.__proto__.constructor === Demo); // true
 
 查询 find 可以判断两个元素是否属于同一个集合 (两个元素是否属于同一个树)
 
-```ts
+::: code-group
+
+```ts [初始化]
 const nodeNum: number = 3;
 
-// 初始化
 const parentIdx = Array.from({ length: nodeNum + 1 }, (_, idx) => idx);
 // parentIdx [0, 1, 2, 3]
 
@@ -280,18 +235,20 @@ const sizes = Array.from({ length: nodeNum + 1 }, (_, idx) =>
   idx === 0 ? 0 : 1,
 );
 // sizes [0, 1, 1, 1]
+```
 
+```ts [union 合并]
+// 合并
 export function union(idxA: number, idxB: number) {
   const rootA = find(idxA);
   const rootB = find(idxB);
   parentIdx[rootA] = rootB;
 }
 
-// 合并优化: 将节点数量较少的树合并到节点数量较多的树
-export function perfUnion(idxA: number, idxB: number) {
+// 优化: 将节点数量较少的树合并到节点数量较多的树
+export function union2(idxA: number, idxB: number) {
   let rootA = find(idxA);
   let rootB = find(idxB);
-  // 将节点数量较少的树合并到节点数量较多的树
   if (sizes[rootA] < sizes[rootB]) {
     [rootA, rootB] = [rootB, rootA];
   }
@@ -300,35 +257,40 @@ export function perfUnion(idxA: number, idxB: number) {
   parentIdx[rootB] = rootA;
   sizes[rootA] += sizes[rootB];
 }
+```
 
+```ts [find 查找]
+// 查找
 export function find(idx: number): number {
-  // 根节点的父节点 == 根节点
   const pIdx = parentIdx[idx];
-  if (pIdx == idx) {
+  if (pIdx === idx) {
     return idx;
   }
   return find(pIdx);
 }
 
-// 查找时压缩
-export function perfFind(idx: number): number {
+// 优化: 查找时路径压缩
+export function find2(idx: number): number {
   const pIdx = parentIdx[idx];
   if (pIdx == idx) {
     return idx;
   }
-  // 路径压缩
   const root = perfFind(pIdx);
   parentIdx[idx] = root;
   return root;
 }
+```
 
+```ts [deleteLeaf 删除叶子节点]
 // 删除叶子节点
 export function deleteLeaf(idx: number) {
   const root = find(idx);
   sizes[root] -= 1;
   parentIdx[idx] = idx;
 }
+```
 
+```ts [moveLeaf 移动叶子节点]
 // 移动叶子节点: 将 idxA 移动到 idxB 所属的树
 export function moveLeaf(idxA: number, idxB: number) {
   const rootA = find(idxA);
@@ -341,3 +303,5 @@ export function moveLeaf(idxA: number, idxB: number) {
   parentIdx[idxA] = rootB;
 }
 ```
+
+:::
