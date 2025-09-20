@@ -4,7 +4,7 @@ layout: home
 hero:
   name: ほんじつの
   text: おんがく集
-  tagline: <a href="/resume.pdf">About me</a>
+  tagline: <a href="/resume.pdf" target="_blank">Do NOT click me</a>
   image:
     src: /index.jpg
     alt: index
