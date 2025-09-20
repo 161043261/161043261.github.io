@@ -795,7 +795,7 @@ chrome 为每一个页面创建一个渲染进程, 渲染进程是多线程的, 
 3. 布局和绘制
 4. 回流和重绘: 回流 reflow, 有关宽高等, 性能开销大; 重绘 repaint, 有关颜色等, 性能开销小
 
-### 回流 (reflow)和重绘 (repaint)
+### 回流 (reflow) 和重绘 (repaint)
 
 回流 (reflow) 是指元素的尺寸, 位置等改变时 (例如 weight, height, font-size) 渲染引擎重新计算**整个**页面布局, 回流后一定有重绘, 性能影响较大
 
@@ -842,16 +842,13 @@ CSS 不会阻塞 DOM 树的构建, 会阻塞 DOM 树的渲染和后续 JS 脚本
 
 ## 浏览器安全机制
 
-1. Web 页面安全: 同源策略 (Same-origin policy)
-   - DOM 层面
-   - 数据层面
-   - 网络层面
-2. Web 网络安全: HTTPS
+1. 同源策略 (Same-origin policy)
+2. 内容安全策略 (Content Security Policy, CSP)
+3. HTTPS
    - 非对称加密以传输密钥 (预主密钥), 对称加密以传输数据
-   - 数字证书
-3. 浏览器系统安全
-   - 安全沙箱 sandbox: 渲染进程处理: 内存/磁盘/文件 IO; 网络 IO; 用户交互时, 必须通过 IPC 向浏览器内核进程发送请求
-   - 站点隔离: 相同站点 (包括 iframe) 可能使用同一个渲染进程处理, 不同站点 (包括 iframe) 使用不同渲染进程处理
+   - 数字证书, 数字签名
+4. 安全沙箱 sandbox: 渲染进程处理: 内存/磁盘/文件 IO; 网络 IO; 用户交互时, 必须通过 IPC 向浏览器内核进程发送请求
+5. 站点隔离: 相同站点 (包括 iframe) 可能使用同一个渲染进程处理, 不同站点 (包括 iframe) 使用不同渲染进程处理
 
 - 源 (Origin): https://161043261.github.io 和 https://tianchenghang.github.io 是不同源 (同源策略 schema://domain:port)
 - 站点 (Site): https://161043261.github.io 和 https://tianchenghang.github.io 是相同站点 (相同站点: 相同协议 https, 相同根域名 .github.io)
@@ -860,9 +857,9 @@ CSS 不会阻塞 DOM 树的构建, 会阻塞 DOM 树的渲染和后续 JS 脚本
 
 同源策略: 如果两个 URL 的协议, 域名 (IP) 和端口都相同, 则两个 URL 同源
 
-- DOM 层面: 不同源则不允许操作 DOM, 但是引入了跨文档消息机制, 允许一个窗口使用另一个窗口的引用, `targetWindow.postMessage`, 和不同源的 DOM 通信
-- 数据层面: 不同源则不允许访问 cookie, sessionStorage, localStorage, IndexedDB 等, 但是页面中可以嵌入第三方页面 (仍然有内容安全策略 CSP, Content Security Policy 限制)
-- 网络层面: 不同源则不允许使用 fetch, XMLHttpRequest 发送数据给不同源的主机, 但是引入了跨域资源共享 CORS, Cross-Origin Resource Sharing
+- DOM 层面: 不同源则不允许相互操作 DOM, 但是引入了跨文档消息机制, 允许一个窗口使用另一个窗口的引用, `targetWindow.postMessage`, 和不同源的 DOM 进行通信
+- 数据层面: 不同源则不允许相互访问 cookie, sessionStorage, localStorage, IndexedDB 等, 但是页面中可以嵌入第三方页面 (仍然有 CSP 内容安全策略限制)
+- 网络层面: 不同源则不允许使用 fetch, XMLHttpRequest 发送数据给不同源的主机, 但是引入了 CORS 跨域资源共享
 
 ```js
 // http://127.0.0.1:5173/index.html
@@ -878,10 +875,10 @@ function setData() {
 
 ### 解决跨域
 
-1. 前后端协商 jsonp: script 标签的 src 不受同源策略的限制, 可以发送跨域请求, 但只能发送 GET 请求
+1. 前后端协商 jsonp: `<script>` 标签的 src 不受同源策略的限制, 可以发送跨域请求, 但只能发送 GET 请求
 2. 前端解决: 使用代理, 只在开发环境中使用
 3. 后端解决: 设置请求头
-4. 使用 nginx 代理
+4. 使用 Nginx 代理
 
 ### CSP 内容安全策略
 
@@ -901,7 +898,7 @@ function setData() {
 - connect-src: 允许建立 AJAX (XMLHttpRequest, fetch), WebSocket 连接的来源
 - default-src: 为所有未明确指定类型的资源设置默认来源规则
 
-### Web 网络安全
+### HTTPS
 
 HTTP 明文传输, 不安全, 引入安全层: IP (网络层) -> TCP (传输层) -> SSL/TLS (安全层) -> HTTP (应用层)
 
@@ -914,10 +911,10 @@ HTTP 明文传输, 不安全, 引入安全层: IP (网络层) -> TCP (传输层)
 
 ### SSL/TLS 握手
 
-1. 客户端问候 (Client Hello): 客户端请求服务器, 发送 "客户端问候" 消息, 该消息包括客户端支持的 TLS 版本, 支持的密码套件, 和客户端生成的一个随机数
-2. 服务器问候 (Server Hello): 服务器响应客户端, 发送 "服务器问候" 消息, 该消息包括服务器选择的 TLS 版本, 选择的密码套件, 和服务器生成的一个随机数
+1. 客户端问候 (Client Hello): 客户端请求服务器, 发送 "客户端问候" 消息, 该消息包括客户端支持的 TLS 版本, 支持的密码套件, 和客户端随机数
+2. 服务器问候 (Server Hello): 服务器响应客户端, 发送 "服务器问候" 消息, 该消息包括服务器选择的 TLS 版本, 选择的密码套件, 和服务器随机数
 3. 服务器发送服务器的数字证书 (包含服务器的公钥)
-4. 通过数字证书, 客户端验证服务器的身份合法性
+4. 客户端通过数字证书验证服务器的身份合法性
 5. 客户端生成一个随机的 "预主密钥", 使用服务器公钥加密 "预主密钥", 并发送给服务器
 6. 服务器使用服务器私钥解密 "预主密钥"
 7. 客户端和服务器使用客户端随机数, 服务器随机数和 "预主密钥" 共同生成一个会话密钥, 用于后续的对称加密
@@ -925,11 +922,15 @@ HTTP 明文传输, 不安全, 引入安全层: IP (网络层) -> TCP (传输层)
 9. 服务器就绪 (Server Finished): 服务器也发送一个 "已完成" 消息, 该消息也使用会话密钥加密, 表示服务器也已经准备好对称加密通信
 10. 握手完成后, 客户端和服务器使用会话密钥进行安全的对称加密通信
 
-### 数字证书 (Digital Certificate)
+### 数字证书
 
-- 非对称加密中, 服务器需要将公钥发送给客户端, 公钥发送过程中, 公钥可能被中间人拦截并替换, 中间人就可以取代服务器与客户端通信, 即中间人攻击
-- 解决方法是, 服务器不是将公钥直接发送给客户端, 而是将公钥写入证书认证机构 (CA, Certificate Authority) 颁发的数字证书中, 服务器将数字证书 (包含服务器的公钥) 发送给客户端
+- 非对称加密中, 服务器需要将公钥发送给客户端, 公钥发送过程中, 可能被中间人拦截并替换, 中间人就可以取代服务器与客户端通信, 即中间人攻击
+- 解决方法是, 服务器不是将公钥直接发送给客户端, 而是将公钥写入证书认证机构 (Certificate Authority, CA) 颁发的数字证书中, 服务器将数字证书 (包含服务器的公钥) 发送给客户端
 - 通过数字证书, 服务器可以向浏览器证明身份合法性
+
+### 数字签名
+
+数字签名使用非对称加密, 保证数据的完整性
 
 ## 浏览器攻击
 
@@ -940,69 +941,21 @@ HTTP 明文传输, 不安全, 引入安全层: IP (网络层) -> TCP (传输层)
 ### XSS 跨站脚本攻击
 
 - 反射型 XSS: 非持久型 XSS, 反射型 XSS 的恶意代码在地址栏上 `http://127.0.0.1:5500/index.html?a=<script>alert(1)</script>`
-- 存储型 XSS: 持久型 XSS, 存储型 XSS 的恶意代码存储在数据库中, **最严重**, 例如发送恶意代码到弹幕, 评论区等, 进而存储到数据库
-- DOM 型 XSS: 例如 document.write(), eval(), innerHTML, location, v-html 等
+- 存储型 XSS: 持久型 XSS, 存储型 XSS 的恶意代码存储在数据库中, **最严重**
+- DOM 型 XSS: 例如 document.write(), eval(), innerHTML, location, v-html, dangerouslySetInnerHTML 等
 
 ### 预防 XSS
 
 - 处理用户输入时, 对输入进行过滤; 输出到页面时, 对输出进行转义
 - 设置响应头的 CSP 内容安全策略 `Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.cdn.com;`
-- 禁用 document.write(), eval(), innerHTML, location, v-html 等
-
-::: code-group
-
-```html [反射型 XSS]
-<!-- 引诱用户搜索
-http://127.0.0.1:5500/index.html?q=<script src="恶意跨站脚本 URL"></script> -->
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    搜索内容
-    <div id="content"></div>
-    <script>
-      const params = new URLSearchParams(location.search);
-      const content = params.get("q");
-      // 预防 XSS: 对用户输入进行过滤
-      content = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      document.getElementById("content").innerHTML = content;
-    </script>
-  </body>
-</html>
-```
-
-```html [DOM 型 XSS 和存储型 XSS]
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <!-- textarea 中输入: <script src="恶意跨站脚本 URL"></script> -->
-    输入内容 <textarea id="textarea"></textarea>
-    <script>
-      document.addEventListener("keydown", (e) => {
-        if (e.keyCode === 13) {
-          let content = document.getElementById("textarea").value;
-          // 如果继续将 content 存储到数据库, 则属于存储型 XSS
-          // 预防 XSS: 对用户输入进行过滤
-          content = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-          document.body.innerHTML += content;
-        }
-      });
-    </script>
-  </body>
-</html>
-```
-
-:::
-
-### CSRF 跨站请求伪造
-
-黑客引诱用户打开黑客的网站, 在黑客的网站中, 利用用户的登录状态发送跨站请求, 攻击方式有: 引诱用户点击链接, 自动发起 GET/POST 请求
+- 禁用 document.write(), eval(), innerHTML, location, v-html, dangerouslySetInnerHTML 等
 
 ## DOM 事件模型
 
 事件传播阶段
 
 - 捕获阶段 Capture Phase: 事件从根节点 (window) 逐层向下传递到目标元素 window -> document -> `<html>` -> `<body>` -> `<ul>` -> `<li>`
-- 目标阶段 Target Phase: 事件到达目标元素 `<td>`
+- 目标阶段 Target Phase: 事件到达目标元素 `<li>`
 - 冒泡阶段 Bubble Phase: 事件从目标元素逐层向上冒泡到根节点 (window) `<li>` -> `<ul>` -> `<body>` -> `<html>` -> document -> window
 
 ### element.addEventListener(eventName, callback, useCapture)
@@ -1083,19 +1036,13 @@ http://127.0.0.1:5500/index.html?q=<script src="恶意跨站脚本 URL"></script
 - .stop 阻止事件冒泡 `event.stopPropagation()`
 - .prevent 阻止默认行为 `event.preventDefault()`
 - .capture 回调函数在捕获阶段执行 `addEventListener("click", () => {}, true /** useCapture */);`
-- .once, .passive, .self
 
 ## AJAX
 
 AJAX: Asynchronous JavaScript And XML
 
-1. AJAX 向服务器发送请求并获取数据, 而无需刷新整个页面, 减少请求次数, 减少响应数据量, 减少网络带宽的消耗, 减轻服务器压力, 实现异步, 增量式更新页面
-2. AJAX 对 SEO 搜索引擎优化劣势较大, 可能有网络安全问题
-
-核心 API
-
 1. 创建 xhr 实例 `const xhr = new XMLHttpRequest();`
-2. open 方法: 初始化请求, 指定请求方法, 请求 URL, 是否异步 (默认 true)
+2. open 方法: 指定请求方法, 请求 URL, 是否异步 (默认 true)
 3. send 方法: 发送请求
 4. onreadystatechange: readyState 改变时, 调用的回调函数
 
@@ -1109,7 +1056,7 @@ xhr 发送 GET 请求
 
 ```js
 const xhr = new XMLHttpRequest();
-xhr.open("GET", "http://localhost:3000/api/json");
+xhr.open("GET", "http://localhost:3000");
 xhr.onload = function () {
   if (xhr.status === 200) {
     console.log(xhr.responseText);
@@ -1122,16 +1069,14 @@ xhr.send(/* params */);
 
 ## fetch
 
-fetch 默认只支持 GET 和 POST 请求方法
-
 - text() 将响应体解析为文本字符串
 - json() 将响应体解析为 JSON 并返回一个 JS 对象
 - blob() 将响应体解析为二进制数据, 并返回一个 Blob 对象
 - arrayBuffer() 将响应体解析为二进制数据, 并返回一个 ArrayBuffer 对象
-- formData() 将响应体解析为 FormData 对象
+- formData() 将响应体解析为表单数据, 并返回一个 FormData 对象
 
 ```js
-fetch("http://localhost:3000/api/json")
+fetch("http://localhost:3000")
   .then((resp) => resp.text())
   .then((resp) => {
     console.log(resp);
@@ -1142,15 +1087,15 @@ fetch("http://localhost:3000/api/json")
 
 使用 navigator.sendBeacon 实现高效的数据上报
 
-传统的数据上报, 例如 xhr, XMLHttpRequest 或 fetch, 页面卸载时可能丢失数据; navigator.sendBeacon 不受页面卸载的影响, 异步数据上报, 可以发送跨域请求
+XMLHttpRequest 或 fetch, 页面卸载可能导致数据丢失; navigator.sendBeacon 不会受到页面卸载的影响, 可以发送跨域请求
 
-- navigator.sendBeacon 只能发送 POST 请求
+- navigator.sendBeacon 只能发送 GET 请求或 POST 请求
 - 不能自定义请求头
 - 只能传输少量数据 (<= 64KB)
 - 只能传输 ArrayBuffer, ArrayBufferView, Blob, DOMString, FormData 或 URLSearchParams 类型的数据
 
 ```js
-navigator.sendBeacon("http://localhost:3000/api/beacon");
+navigator.sendBeacon("http://localhost:3000");
 ```
 
 ## navigator.connection
