@@ -704,10 +704,10 @@ DNS 域名系统是一个分布式数据库, 存储域名到 IP 地址的映射,
 
 ## 浏览器缓存
 
-HTTP 缓存是保存资源副本的技术, 复用资源, 减少等待时间, 提高页面性能, 减少网络流量, 降低服务器压力; 浏览器或服务器判断请求的资源已被缓存时, 直接返回; HTTP 缓存分为私有缓存 (浏览器缓存) 和代理缓存 (共享缓存)
+HTTP 缓存是保存资源副本的技术, 提高页面性能, 减少网络流量, 降低服务器压力; 浏览器或服务器判断请求的资源已被缓存时, 直接返回; HTTP 缓存分为私有缓存 (浏览器缓存) 和共享缓存 (CDN 缓存, 网关缓存, 代理缓存)
 
 - 私有缓存: 浏览器缓存
-- 共享缓存: CDN 缓存, 代理缓存, 网关缓存
+- 共享缓存: CDN 缓存, 网关缓存, 代理缓存
 
 浏览器缓存, 也称为客户端缓存; 浏览器缓存分为强缓存和协商缓存, 强缓存的优先级高于协商缓存
 
@@ -720,8 +720,8 @@ HTTP 缓存是保存资源副本的技术, 复用资源, 减少等待时间, 提
 1. 请求强缓存的资源, 不会发送请求到服务器, 直接从客户端缓存中获取资源, 浏览器直接返回 `200 From Memory Cache/From Disk Cache`
 2. 服务器可以使用响应头中的 `Cache-Control` 或 `Expires` 字段设置强缓存, `Cache-Control` 的优先级高于 `Expires`, 表示资源在客户端的缓存有效期
 
-- Cache-Control: max-age=31536000
-- Expires: Mon, 01 Jan 2025 20:32:51 GMT
+- Cache-Control: max-age=30000000
+- Expires: Mon, 01 Jan 2025 00:00:00 GMT
 
 ### 协商缓存 (对比缓存)
 
@@ -732,13 +732,13 @@ HTTP 缓存是保存资源副本的技术, 复用资源, 减少等待时间, 提
 
 **强缓存和协商缓存的相同点**
 
-如果命中, 是从客户端缓存中加载资源, 不是从服务器加载资源
+如果命中, 都是从客户端缓存中加载资源, 不是从服务器加载资源
 
 **强缓存和协商缓存的不同点**
 
 - 强缓存不会发送请求到服务器, 协商缓存会发送请求到服务器; 协商缓存也未命中时, 才会从服务器加载资源
-- 强缓存 `Cache-Control`: 指定存活时间, 例 `Cache-Control: max-age=31536000`
-- 强缓存 `Expires`: 指定过期时间, 例 `Expires: Mon, 01 Jan 2025 20:32:51 GMT`
+- 强缓存 `Cache-Control`: 指定存活时间, 例 `Cache-Control: max-age=30000000`
+- 强缓存 `Expires`: 指定过期时间, 例 `Expires: Mon, 01 Jan 2025 00:00:00 GMT`
 - 协商缓存 `If-Modified-Since`: 服务器使用响应头中的 `Last-Modified` 字段设置协商缓存, 客户端请求时自动携带 `If-Modified-Since` 比较值是否相同
 - 协商缓存 `If-None-Match`: 服务器使用响应头中的 `ETag` 字段设置协商缓存, 客户端请求时自动携带 `If-None-Match` 请求头, 比较值是否相同
 - 强缓存中, `Cache-Control` 优先级高于 `Expires`
@@ -757,23 +757,24 @@ HTTP 缓存是保存资源副本的技术, 复用资源, 减少等待时间, 提
 
 ### chrome 多进程架构
 
-- 浏览器主要包含: 主进程, 网络进程, 渲染进程, GPU 进程, 插件进程
+- 浏览器主要包含: 浏览器主进程, **渲染进程**, 网络进程, GPU 进程, 插件进程
 - chrome 为每一个页面创建一个渲染进程, 一个页面崩溃不会影响其他页面
 
 ### 渲染进程
 
 **JS 是单线程的**: JS 的主要任务是操作 DOM, 处理用户交互; 如果 JS 是多线程的, 可能操作 DOM 冲突, 例如两个线程同时操作一个 DOM, 一个修改另一个删除
 
-> [!tip] GUI 渲染线程和 JS 引擎线程是互斥执行的
-> GUI 渲染线程执行时, JS 引擎线程会被挂起; JS 引擎线程执行时, GUI 渲染线程会被挂起
+> [!tip]
+>
+> GUI 渲染线程和 JS 引擎线程是互斥执行的: GUI 渲染线程执行时, JS 引擎线程会被挂起; JS 引擎线程执行时, GUI 渲染线程会被挂起
 
 chrome 为每一个页面创建一个渲染进程, 渲染进程是多线程的, 主要包含
 
-- **GUI 渲染线程**: 负责渲染页面, 解析 HTML, CSS; 构建 DOM 树, CSSOM 树; 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree); 回流和重绘等; 当页面需要重绘 (repaint) 或回流 (reflow) 时, 执行 GUI 渲染线程
-- **JS 引擎线程**: 负责解析, 执行 JS 代码, JS 是单线程的, 一个页面 (一个渲染进程) 中只有一个 JS 引擎线程 (例如 V8 引擎), JS 的主要任务是操作 DOM, 处理用户交互; 如果 JS 是多线程的, 可能操作 DOM 冲突, 例如两个线程同时操作一个 DOM, 一个负责修改另一个负责删除
+- **GUI 渲染线程**: 负责渲染页面, 解析 HTML, CSS; 构建 DOM 树, CSSOM 树; 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree); 布局和绘制，回流和重绘等; 当页面需要回流 (reflow) 或重绘 (repaint) 时, 执行 GUI 渲染线程
+- **JS 引擎线程**: 负责解析, 执行 JS 代码, JS 是单线程的, 一个页面 (一个渲染进程) 中只有一个 JS 引擎线程 (例如 V8 引擎), JS 的主要任务是处理用户交互, 操作 DOM; 如果 JS 是多线程的, 操作 DOM 可能冲突, 例如两个线程同时操作一个 DOM, 一个负责修改另一个负责删除
 - **事件触发线程**: 控制事件循环, 负责将同步任务加入同步任务栈 (函数调用栈), 将异步任务加入异步任务队列 (宏任务加入宏任务队列, 微任务加入微任务队列)
 - **定时器触发线程**: 执行 setTimeout, setInterval 的线程
-- **异步 http 请求线程**: 执行 XMLHttpRequest 的线程
+- **异步 HTTP 请求线程**: 执行 XMLHttpRequest 的线程
 - **I/O 线程**: 负责文件 I/O, IPC 进程间通信
 
 **单线程本质**: JS 主线程负责执行所有同步代码, 微任务和宏任务回调, 宏任务触发可能依赖其他线程
@@ -782,31 +783,41 @@ chrome 为每一个页面创建一个渲染进程, 渲染进程是多线程的, 
 - I/O 操作: XMLHttpRequest, fetch, postMessage 依赖网络线程 (node 环境依赖 libuv)
 - requestAnimationFrame: 依赖 GUI 渲染线程
 
-## 浏览器渲染过程
+### 浏览器渲染过程
 
 1. 解析 HTML, 深度优先遍历以构建 DOM 树
    - 遇到 `<style>` 标签时, 会同时构建 CSSOM 树
-   - 遇到未使用 async 或 defer 标记的 `<script>` 标签时, 会阻塞 DOM 树的构建, 并等待 CSSOM 树构建完成后, 转而执行后续的 JS 脚本
-   - async 是**异步加载**, 如果可用则立即执行, 执行 JS 脚本时仍可能阻塞 DOM 树的构建
+   - 遇到未使用 async 或 defer 或 `type="module"` 标记的 `<script>` 标签时, 会阻塞 DOM 树的构建, 并等待 CSSOM 树构建完成后, 转而执行后续的 JS 脚本
+   - async 是**异步加载**, JS 脚本可用时立即执行, 执行 JS 脚本时可能阻塞 DOM 树的构建
    - defer 是**延迟执行**, 延迟到 DOM 树构建完成后执行 JS 脚本
-   - 对于 type="module" 的 `<script>` 标签, 默认是 defer 延迟执行, 如果添加 async, 则会覆盖默认的 defer `<script type="module" src="/src/main.js" async></script>`
+   - 对于 type="module" 标记的 `<script>` 标签, 默认是 defer 延迟执行, 如果添加 async, 则会覆盖默认的 defer `<script type="module" src="/src/main.js" async></script>`
 2. 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree)
-3. 回流和重绘: 回流 reflow, 有关宽高等, 性能开销大; 重绘 repaint, 有关颜色等, 性能开销小
+3. 布局和绘制
+4. 回流和重绘: 回流 reflow, 有关宽高等, 性能开销大; 重绘 repaint, 有关颜色等, 性能开销小
 
-### 重绘 (repaint) 和回流 (reflow)
+### 回流 (reflow)和重绘 (repaint)
+
+回流 (reflow) 是指元素的尺寸, 位置等改变时 (例如 weight, height, font-size) 渲染引擎重新计算**整个**页面布局, 回流后一定有重绘, 性能影响较大
+
+重绘 (repaint) 是指元素的样式等改变时 (例如 color, background-color), 渲染引擎重新绘制**部分**元素, 重绘前不一定有回流, 性能影响较小
 
 回流的触发条件
 
 - 页面首次渲染
+- 浏览器窗口的宽高 (视口 vw, vh) 改变
 - 添加或删除可见的 DOM 元素
-- 元素的位置, 宽高, 内容改变
-- 浏览器窗口的宽高改变
+- DOM 元素的位置 (left, top, ...), 宽高 (weight, height, margin, padding, ...) 等改变
+- DOM 元素的字体大小改变
+- 激活 CSS 伪类 (例如 :hover)
 
 重绘的触发条件: CSS 的 background, border, box-shadow, outline, visibility 等属性改变
 
 ## 关键渲染路径, 阻塞渲染
 
 优化关键渲染路径, 可以缩短浏览器渲染页面的时间
+
+- CSS: 渲染阻塞资源
+- JavaScript: 解释器阻塞资源
 
 ### CSS 的阻塞
 
@@ -818,133 +829,18 @@ CSS 不会阻塞 DOM 树的构建, 会阻塞 DOM 树的渲染和后续 JS 脚本
 
 ### JS 的阻塞
 
-浏览器解析 HTML 时, 遇到未使用 async 或 defer 或 `type="module"` 标记的 `<script>` 标签, 会阻塞 DOM 树的构建, 并等待 CSSOM 树构建完成后, 转而执行后续的 JS 脚本
+浏览器解析 HTML 时, 遇到未使用 async 或 defer 或 `type="module"` 标记的 `<script>` 标签时, 会阻塞 DOM 树的构建, 并等待 CSSOM 树构建完成后, 转而执行后续的 JS 脚本
 
-- async 是**异步加载**, 如果可用则立即执行, 执行
-  JS 脚本时仍可能阻塞 DOM 树的构建
-- defer 是**延迟执行**, 延迟到 DOM 树构建完成后执
-  行 JS 脚本
-- 对于 type="module" 的 `<script>` 标签, 默认是 defer, 如果添加 async, 则会覆盖默认的 defer `<script type="module" src="/src/main.js" async></script>`
+- async 是**异步加载**, JS 脚本可用时立即执行, 执行 JS 脚本时可能阻塞 DOM 树的构建
+- defer 是**延迟执行**, 延迟到 DOM 树构建完成后执行 JS 脚本
+- 对于 type="module" 标记的 `<script>` 标签, 默认是 defer 延迟执行, 如果添加 async, 则会覆盖默认的 defer `<script type="module" src="/src/main.js" async></script>`
 
 ### rel="preload", rel="modulepreload"
 
-- `<link rel="preload stylesheet" href="/global.css" as="style">` rel="preload" 预加载任意资源, as 指定资源类型 script, style, font, image, ...
+- `<link rel="preload stylesheet" href="/style.css" as="style">` rel="preload" 预加载任意资源, as 指定资源类型 script, style, font, image, ...
 - `<link rel="modulepreload" href="/src/main.js">`: rel="modulepreload" 预加载 esm 模块和依赖的子模块
 
-对比
-::: code-group
-
-```html [不使用预加载]
-<!-- 先加载 a.js -->
-<script src="a.js"></script>
-<!-- 再加载 b.js -->
-<!-- b.js 的加载被 a.js 的加载阻塞 -->
-<script src="b.js"></script>
-```
-
-```html [使用预加载]
-<head>
-  <!-- 预加载 b.js -->
-  <link rel="preload" href="b.js" as="script" />
-</head>
-<body>
-  <script src="a.js"></script>
-  <!-- 从缓存中直接读取 b.js -->
-  <script src="b.js"></script>
-</body>
-```
-
-:::
-
-## DOM 事件模型
-
-事件传播阶段
-
-- 捕获阶段 Capture Phase: 事件从根节点 (window) 逐层向下传递到目标元素 window -> document -> `<html>` -> `<body>` -> `<ul>` -> `<li>`
-- 目标阶段 Target Phase: 事件到达目标元素 `<td>`
-- 冒泡阶段 Bubble Phase: 事件从目标元素逐层向上冒泡到根节点 (window) `<li>` -> `<ul>` -> `<body>` -> `<html>` -> document -> window
-
-### element.addEventListener(eventName, callback, useCapture)
-
-- eventName: 事件名
-- callback: 事件触发时执行的回调函数
-- useCapture
-  - true: 回调函数在捕获阶段执行
-  - false: 回调函数在冒泡阶段执行, 默认
-
-::: code-group
-
-```html
-<!-- 点击 child, 输出: Parent capture -> Child 2 -> Child 1 -> Child 3 -> Parent bubble -->
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <div id="parent">
-      <div id="child"></div>
-    </div>
-  </body>
-
-  <script>
-    const parent = document.getElementById("parent");
-    const child = document.getElementById("child");
-    parent.addEventListener("click", () => console.log("Parent capture"), true);
-    parent.addEventListener("click", () => console.log("Parent bubble"), false);
-    child.addEventListener("click", () => console.log("Child 1") /** false */);
-    child.addEventListener("click", () => console.log("Child 2"), true);
-    child.addEventListener("click", () => console.log("Child 3"), false);
-  </script>
-</html>
-```
-
-```html
-<!-- 点击 child, 输出: Parent capture -> Child 2 -->
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <div id="parent">
-      <div id="child"></div>
-    </div>
-  </body>
-
-  <script>
-    const parent = document.getElementById("parent");
-    const child = document.getElementById("child");
-    parent.addEventListener("click", () => console.log("Parent Capture"), true);
-    parent.addEventListener("click", () => console.log("Parent Bubble"), false);
-    child.addEventListener("click", () => console.log("Child 1") /** false */);
-    child.addEventListener(
-      "click",
-      (ev) => {
-        console.log("Child 2");
-        ev.stopPropagation(); // 阻止事件冒泡
-      },
-      true,
-    );
-    child.addEventListener("click", () => console.log("Child 3"), false);
-  </script>
-</html>
-```
-
-:::
-
-- 阻止事件冒泡 `event.stopPropagation()`
-- 阻止默认行为 `event.preventDefault()`
-
-### 事件委托 (代理)
-
-- 利用事件冒泡, 将目标元素的事件委托给父/祖先元素处理
-- 例如 `<ul>`, 需要给每个 `<li>` 都绑定事件, 消耗内存; 插入新的 `<li>` 时, 需要给新的 `<li>` 绑定事件
-- 使用事件委托, 只需要给父/祖先元素绑定事件, 节约内存; 插入新的 `<li>` 时, 不需要给新的 `<li>` 绑定事件
-- event.target 是触发事件的元素, event.currentTarget 是绑定事件的元素, 使用事件委托时, event.currentTarget 是 event.target 的父/祖先元素
-
-### Vue 事件修饰符
-
-- .stop 阻止事件冒泡 `event.stopPropagation()`
-- .prevent 阻止默认行为 `event.preventDefault()`
-- .capture 回调函数在捕获阶段执行 `addEventListener("click", () => {}, true /** useCapture */);`
-- .once, .passive, .self
-
-## 浏览器安全
+## 浏览器安全机制
 
 1. Web 页面安全: 同源策略 (Same-origin policy)
    - DOM 层面
@@ -1101,20 +997,93 @@ http://127.0.0.1:5500/index.html?q=<script src="恶意跨站脚本 URL"></script
 
 黑客引诱用户打开黑客的网站, 在黑客的网站中, 利用用户的登录状态发送跨站请求, 攻击方式有: 引诱用户点击链接, 自动发起 GET/POST 请求
 
-## 回流和重绘
+## DOM 事件模型
 
-回流 (reflow) 是指元素的尺寸, 位置等改变时 (例如 weight, height, font-size) 渲染引擎重新计算**整个**页面布局, 回流后一定有重绘, 性能影响较大
+事件传播阶段
 
-重绘 (repaint) 是指元素的样式等改变时 (例如 color, background-color), 渲染引擎重新绘制**部分**元素, 重绘前不一定有回流, 性能影响较小
+- 捕获阶段 Capture Phase: 事件从根节点 (window) 逐层向下传递到目标元素 window -> document -> `<html>` -> `<body>` -> `<ul>` -> `<li>`
+- 目标阶段 Target Phase: 事件到达目标元素 `<td>`
+- 冒泡阶段 Bubble Phase: 事件从目标元素逐层向上冒泡到根节点 (window) `<li>` -> `<ul>` -> `<body>` -> `<html>` -> document -> window
 
-会导致回流的操作
+### element.addEventListener(eventName, callback, useCapture)
 
-1. 页面首次渲染
-2. 浏览器窗口 (视口 vw, vh) 尺寸改变
-3. 元素尺寸 (weight, height, margin, padding, ...) 或位置 (left, top, ...) 改变
-4. 元素字体大小改变
-5. 添加或删除可见的 DOM 元素
-6. 激活 CSS 伪类 (例如 :hover)
+- eventName: 事件名
+- callback: 事件触发时执行的回调函数
+- useCapture
+  - true: 回调函数在捕获阶段执行
+  - false: 回调函数在冒泡阶段执行, 默认
+
+::: code-group
+
+```html
+<!-- 点击 child, 输出: Parent capture -> Child 2 -> Child 1 -> Child 3 -> Parent bubble -->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="parent">
+      <div id="child"></div>
+    </div>
+  </body>
+
+  <script>
+    const parent = document.getElementById("parent");
+    const child = document.getElementById("child");
+    parent.addEventListener("click", () => console.log("Parent capture"), true);
+    parent.addEventListener("click", () => console.log("Parent bubble"), false);
+    child.addEventListener("click", () => console.log("Child 1") /** false */);
+    child.addEventListener("click", () => console.log("Child 2"), true);
+    child.addEventListener("click", () => console.log("Child 3"), false);
+  </script>
+</html>
+```
+
+```html
+<!-- 点击 child, 输出: Parent capture -> Child 2 -->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="parent">
+      <div id="child"></div>
+    </div>
+  </body>
+
+  <script>
+    const parent = document.getElementById("parent");
+    const child = document.getElementById("child");
+    parent.addEventListener("click", () => console.log("Parent Capture"), true);
+    parent.addEventListener("click", () => console.log("Parent Bubble"), false);
+    child.addEventListener("click", () => console.log("Child 1") /** false */);
+    child.addEventListener(
+      "click",
+      (ev) => {
+        console.log("Child 2");
+        ev.stopPropagation(); // 阻止事件冒泡
+      },
+      true,
+    );
+    child.addEventListener("click", () => console.log("Child 3"), false);
+  </script>
+</html>
+```
+
+:::
+
+- 阻止事件冒泡 `event.stopPropagation()`
+- 阻止默认行为 `event.preventDefault()`
+
+### 事件委托 (代理)
+
+- 利用事件冒泡, 将目标元素的事件委托给父/祖先元素处理
+- 例如 `<ul>`, 需要给每个 `<li>` 都绑定事件, 消耗内存; 插入新的 `<li>` 时, 需要给新的 `<li>` 绑定事件
+- 使用事件委托, 只需要给父/祖先元素绑定事件, 节约内存; 插入新的 `<li>` 时, 不需要给新的 `<li>` 绑定事件
+- event.target 是触发事件的元素, event.currentTarget 是绑定事件的元素, 使用事件委托时, event.currentTarget 是 event.target 的父/祖先元素
+
+### Vue 事件修饰符
+
+- .stop 阻止事件冒泡 `event.stopPropagation()`
+- .prevent 阻止默认行为 `event.preventDefault()`
+- .capture 回调函数在捕获阶段执行 `addEventListener("click", () => {}, true /** useCapture */);`
+- .once, .passive, .self
 
 ## AJAX
 
