@@ -73,14 +73,6 @@ Vue Tree-Shaking: 删除冗余代码
 ### Vue 脚手架
 
 ```bash
-# npm install create-vue@latest -g
-# npx create-vue
-npm create vue@latest --verbose # 推荐
-
-# npm install create-vite@latest -g
-# npx create-vite
-npm create vite@latest --verbose
-
 pnpm create vue@latest
 
 pnpm create vite@latest

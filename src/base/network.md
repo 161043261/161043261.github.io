@@ -308,7 +308,7 @@ WebSocket 前, 如果需要在服务器和客户端间双向通信, 则需要通
 
 短轮询指浏览器使用 JavaScript 启动一个定时器, 以固定的间隔向服务器发送请求, 询问服务器有没有新消息, 缺点: 实时性差, 频繁的请求会增大服务器的压力
 
-长轮询是指浏览器发送请求后, 服务器保持连接, 等到有新消息时才返回, 减少了请求次数, 提高了实时性, 缺点:
+长轮询指浏览器发送请求后, 服务器保持连接, 等到有新消息时才返回, 减少了请求次数, 提高了实时性, 缺点:
 
 1. 多线程服务器的 listener 线程长时间挂起, 等待新消息, 浪费 CPU 资源
 2. 一个长时间无数据传输的 HTTP 连接, 链路上的任何一个网关都可能关闭该 HTTP 连接, 这是不可控的
@@ -1085,11 +1085,11 @@ fetch("http://localhost:3000")
 
 ## navigator.sendBeacon
 
-使用 navigator.sendBeacon 实现高效的数据上报
+`navigator.sendBeacon` 用于数据上报
 
-XMLHttpRequest 或 fetch, 页面卸载可能导致数据丢失; navigator.sendBeacon 不会受到页面卸载的影响, 可以发送跨域请求
+XMLHttpRequest 或 fetch, 页面卸载可能导致数据丢失; `navigator.sendBeacon` 不会受到页面卸载的影响, 可以发送跨域请求
 
-- navigator.sendBeacon 只能发送 GET 请求或 POST 请求
+- `navigator.sendBeacon` 只能发送 GET 请求或 POST 请求
 - 不能自定义请求头
 - 只能传输少量数据 (<= 64KB)
 - 只能传输 ArrayBuffer, ArrayBufferView, Blob, DOMString, FormData 或 URLSearchParams 类型的数据
@@ -1122,17 +1122,13 @@ if (navigator.onLine) {
 ```
 
 ```js
-if ("connection" in navigator) {
-  const conn = navigator.connection;
-  // 当前网络连接的下载速率, 单位 Mbps
-  console.log("Network downlink:", conn.downlink);
-  // 当前网络连接的类型: slow-2g, 2g, 3g, 4g
-  console.log("Network effective type:", conn.effectiveType);
-  // 当前网络连接的 rtt, 单位 ms
-  console.log("Network round-trip time:", conn.rtt);
-  // 是否处于数据节省模式
-  console.log("Network data-saving mode:", conn.saveData);
-} else {
-  console.log("navigator.connection is not supported.");
-}
+const conn = navigator.connection;
+// 当前网络连接的下载速率, 单位 Mbps
+console.log("Network downlink:", conn.downlink);
+// 当前网络连接的类型: slow-2g, 2g, 3g, 4g
+console.log("Network effective type:", conn.effectiveType);
+// 当前网络连接的 rtt, 单位 ms
+console.log("Network round-trip time:", conn.rtt);
+// 是否处于数据节省模式
+console.log("Network data-saving mode:", conn.saveData);
 ```

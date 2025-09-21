@@ -3,11 +3,11 @@
 ## webpack 基本概念
 
 - chunk 模块
-  - JS 模块有 esm, cjs, umd, ...
+  - JS 模块有 esm, cjs, ...
   - CSS 模块有 @import
-  - webpack 模块有 esm, cjs, amd, assets, wasm
-- entry 入口文件: (模块 chunk), 默认值是 `./src/index.js` 作为构建依赖图的起点
-- output: 指定创建的 bundle 的输出目录, 输出文件名, 默认输出目录是 `dist`, 主要输出文件的默认值是 `./dist/index.js`
+  - webpack 模块有 esm, cjs, assets, wasm
+- entry 入口文件, 默认值是 `./src/index.js` 作为构建依赖图的起点
+- output: 指定创建的 bundle 的输出目录, 输出文件名, 默认输出目录是 `./dist`, 输出默认文件是 `./dist/index.js`
 - loader: webpack 原生支持加载 JavaScript 和 JSON 文件, loader 使得 webpack 可以加载其他类型的文件, 并转换为有效的模块; `webpack.config` 中, loader 有两个属性:
   - test 属性, 匹配转换的文件 (使用正则表达式匹配转换的文件时, 不要加引号)
   - use 属性, 指定转换时, 使用哪个 loader
