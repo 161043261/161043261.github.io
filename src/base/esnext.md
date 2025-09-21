@@ -1,6 +1,15 @@
 # JS/TS
 
-## node 命令行
+## npm 命令
+
+```bash
+npm config list
+
+npm get registry
+npm config set registry https://registry.npmmirror.com
+```
+
+## node 命令
 
 ```bash
 node ./index.js --watch

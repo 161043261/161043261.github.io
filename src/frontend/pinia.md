@@ -150,7 +150,7 @@ const { age, name } = storeToRefs(userStore);
 userStore.$subscribe(
   (mutation, newState) => {
     console.log(mutation, newState);
-  } /** callback */,
+  }, // callback
   {
     detached: false, // 默认 false, 组件卸载时移除 callback
 
@@ -163,7 +163,7 @@ userStore.$subscribe(
     // post: state 更新后调用 callback
     // sync: 同步调用 callback
     once: false, // 一次性侦听, callback 只调用一次
-  } /** options */,
+  }, // options
 );
 ```
 
