@@ -18,27 +18,6 @@ node ./index.js --env-file ./.env.development
 node ./index.js --env-file ./.env.production
 ```
 
-## 事件循环
-
-JS 是单线程的
-
-- JS 的主要任务是处理用户交互, 操作 DOM; 如果 JS 是多线程的, 可能操作 DOM 冲突, 例如两个线程同时操作一个 DOM, 一个修改另一个删除
-- 有多线程的 Web Worker, 但是 Web Worker 不允许操作 DOM (没有 GUI 渲染线程的访问权限)
-
-chrome 为每一个页面创建一个渲染进程, 渲染进程是多线程的, 主要包含
-
-- **GUI 渲染线程**: 负责渲染页面, 解析 HTML, CSS; 构建 DOM 树, CSSOM 树; 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree); 布局和绘制，回流和重绘等
-  - 当页面需要回流 (reflow) 或重绘 (repaint) 时, 执行 GUI 渲染线程
-  - GUI 渲染线程和 JS 引擎线程是互斥执行的, GUI 渲染线程执行时, JS 引擎线程会被挂起; JS 引擎线程执行时, GUI 渲染线程会被挂起
-  - requestAnimationFrame 依赖 GUI 渲染线程
-- **JS 引擎线程 (主线程)**: 一个页面 (一个渲染进程) 中只有一个 JS 引擎线程 (例如 V8 引擎), 负责将同步任务加入同步任务栈 (函数调用栈), 执行所有同步代码, 宏任务和微任务
-- **事件触发线程**: 负责将异步任务加入异步任务队列 (宏任务加入宏任务队列, 微任务加入微任务队列)
-- **定时器触发线程**: 执行 setTimeout, setInterval 的线程
-- 网络线程: 执行 XMLHttpRequest, fetch, postMessage 的线程
-- I/O 线程: 负责文件 I/O, IPC 进程间通信等
-
-**单线程本质**: JS 引擎线程 (主线程) 负责执行所有同步代码, 宏任务和微任务; 宏任务触发可能依赖其他线程
-
 ## 模板字符串
 
 ```ts
@@ -61,7 +40,28 @@ const parsedStr = parser`text-${twArg}-${twArg2}`;
 console.log(parsedStr); // color: #62748e
 ```
 
-## 同步任务, 异步任务 (宏任务, 微任务)
+## 事件循环
+
+JS 是单线程的
+
+- JS 的主要任务是处理用户交互, 操作 DOM; 如果 JS 是多线程的, 可能操作 DOM 冲突, 例如两个线程同时操作一个 DOM, 一个修改另一个删除
+- 有多线程的 Web Worker, 但是 Web Worker 不允许操作 DOM (没有 GUI 渲染线程的访问权限)
+
+chrome 为每一个页面创建一个渲染进程, 渲染进程是多线程的, 主要包含
+
+- **GUI 渲染线程**: 负责渲染页面, 解析 HTML, CSS; 构建 DOM 树, CSSOM 树; 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree); 布局和绘制，回流和重绘等
+  - 当页面需要回流 (reflow) 或重绘 (repaint) 时, 执行 GUI 渲染线程
+  - GUI 渲染线程和 JS 引擎线程是互斥执行的, GUI 渲染线程执行时, JS 引擎线程会被挂起; JS 引擎线程执行时, GUI 渲染线程会被挂起
+  - requestAnimationFrame 依赖 GUI 渲染线程
+- **JS 引擎线程 (主线程)**: 一个页面 (一个渲染进程) 中只有一个 JS 引擎线程 (例如 V8 引擎), 负责将同步任务加入同步任务栈 (函数调用栈), 执行所有同步代码, 宏任务和微任务
+- **事件触发线程**: 负责将异步任务加入异步任务队列 (宏任务加入宏任务队列, 微任务加入微任务队列)
+- **定时器触发线程**: 执行 setTimeout, setInterval 的线程
+- 网络线程: 执行 XMLHttpRequest, fetch, postMessage 的线程
+- I/O 线程: 负责文件 I/O, IPC 进程间通信等
+
+**单线程本质**: JS 引擎线程 (主线程) 负责执行所有同步代码, 宏任务和微任务; 宏任务触发可能依赖其他线程
+
+### 同步任务, 异步任务 (宏任务, 微任务)
 
 同步任务: 代码从上到下顺序执行
 
@@ -80,12 +80,12 @@ console.log(parsedStr); // color: #62748e
 
 - Promise 的构造函数是同步的 `new Promise((resolve, reject) => {/** 同步代码 */})`
 
-### 运行机制
+同步任务栈: 存放同步任务 (无需关注)
 
-- 同步任务栈: 存放同步任务 (无需关注)
-- 异步任务队列
-  - 宏任务队列: 宏任务加入宏任务队列
-  - 微任务队列: 微任务加入微任务队列
+异步任务队列
+
+- 宏任务队列: 宏任务加入宏任务队列
+- 微任务队列: 微任务加入微任务队列
 
 > [!important]
 >
