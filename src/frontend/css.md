@@ -1352,7 +1352,7 @@ flex-direction: 设置主轴方向
 }
 ```
 
-> 方法 2: 父元素开启 flex 布局, 子元素使用 `margin: auto`
+方法 2: 父元素开启 flex 布局, 子元素使用 `margin: auto`
 
 ```css
 .outer1 {

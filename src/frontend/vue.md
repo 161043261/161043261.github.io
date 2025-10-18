@@ -42,7 +42,7 @@ MVVM, Model-View-ViewModel
 ### 虚拟 DOM 性能优化
 
 - Vue2 中, 每次使用 diff 算法更新虚拟 DOM 时, 都是全量对比
-- Vue 中, 每次使用 diff 算法更新虚拟 DOM 时, 只对比有 patch 标记的节点
+- Vue3 中, 每次使用 diff 算法更新虚拟 DOM 时, 只对比有 patch 标记的节点
 
 ### Vue Fragments
 
@@ -65,8 +65,6 @@ render() {
   )
 }
 ```
-
-Vue Tree-Shaking: 删除冗余代码
 
 ## 创建 Vue 项目
 

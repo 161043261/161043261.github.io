@@ -494,6 +494,8 @@ import { useSyncExternalStore } from "react";
 
 type TCallback = () => void;
 export default function useLocalStorage<T>(key: string, initialVal: T) {
+  let cb: TCallback | null = null;
+
   // subscribe 订阅数据源的更新
   // subscribe 接收 React 提供的 onStoreChange 回调函数
   // 数据源更新时, 调用 onStoreChange
@@ -501,12 +503,11 @@ export default function useLocalStorage<T>(key: string, initialVal: T) {
     // function() { checkIfSnapshotChanged(inst) && forceStoreRerender(fiber); }
     console.log("[subscribe] onStoreChange:", onStoreChange.toString());
 
-    // onStoreChange 通知 React 数据源有更新
-    // 通知 React 调用 getSnapshot 获取数据源的快照, 以更新 state, 触发组件更新
-    window.addEventListener("storage", onStoreChange);
+    // onStoreChange 通知 React 调用 getSnapshot 获取数据源的快照, 以更新 state, 触发组件更新
+    cb = onStoreChange;
 
     // subscribe 返回取消订阅的函数
-    return () => window.removeEventListener("storage", onStoreChange);
+    return () => (cb = null);
   };
 
   // getSnapshot 获取数据源的快照
@@ -520,7 +521,7 @@ export default function useLocalStorage<T>(key: string, initialVal: T) {
   const state: T = useSyncExternalStore<T>(subscribe, getSnapshot);
   const setState = (newVal: T) => {
     localStorage.setItem(key, JSON.stringify(newVal));
-    window.dispatchEvent(new StorageEvent("storage"));
+    cb?.();
   };
 
   return [state, setState] as const;

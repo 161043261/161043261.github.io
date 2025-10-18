@@ -18,12 +18,13 @@ export EDITOR="vim"
 # export PATH="$HOME/.local/bin:$PATH"
 
 # C, C++
-export CC=clang
-export CXX=clang++
+export CC=clang # clang-cl
+export CXX=clang++ # clang-cl
 export CMAKE_GENERATOR=Ninja
 
 # Go
 export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
@@ -32,9 +33,6 @@ export PATH="$GOBIN:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# Python3
-export PATH="$HOME/venv/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
