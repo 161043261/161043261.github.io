@@ -87,12 +87,11 @@ apt-transport-https \
 build-essential \
 ca-certificates clang clang-format clang-tools clangd cmake curl \
 firewalld \
-gdb git \
+gdb git golang-go \
 iperf3 \
 lld lldb llvm \
 net-tools ninja-build \
-openssh-server \
-pkg-config python3 python3-pip python3-venv \
+pkg-config \
 tree \
 vim \
 wget \

@@ -17,7 +17,7 @@ export default {
         { text: "CSS", link: "/frontend/css" },
         { text: "CSS(2)", link: "/frontend/css2" },
         { text: "Vue", link: "/frontend/vue" },
-        { text: "Vue.pro", link: "/frontend/vue-pro" },
+        { text: "Vue3", link: "/frontend/vue3" },
         { text: "vue-router", link: "/frontend/vue-router" },
         { text: "Pinia", link: "/frontend/pinia" },
         { text: "React", link: "/frontend/react" },
