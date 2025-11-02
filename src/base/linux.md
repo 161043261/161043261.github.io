@@ -23,24 +23,12 @@ export CXX=clang++ # clang-cl
 export CMAKE_GENERATOR=Ninja
 
 # Go
+export CGO_ENABLED=0
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn,direct
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
-
-# JS, TS
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
 ```
 
 ## vim
@@ -77,10 +65,8 @@ wsl --set-default Ubuntu
 wsl --shutdown
 # wsl --unregister Ubuntu
 
-sudo apt update && sudo apt full-upgrade && \
+sudo apt update && sudo apt full-upgrade -y && \
 sudo apt-get update && sudo apt-get full-upgrade -y
-
-sudo apt autoclean && sudo apt autoremove
 
 sudo apt install \
 apt-transport-https \
@@ -97,6 +83,8 @@ vim \
 wget \
 zip zsh \
 --fix-missing -y
+
+sudo apt autoclean && sudo apt autoremove
 
 # zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions && \
