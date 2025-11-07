@@ -10,25 +10,23 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source "$ZSH/oh-my-zsh.sh"
 export EDITOR="vim"
 
-# proxy=127.0.0.1:7890
-# export HTTP_PROXY=http://$proxy
-# export HTTPS_PROXY=http://$proxy
-# export ALL_PROXY=socks5://$proxy
+# _proxy="127.0.0.1:7890"
+# export HTTP_PROXY="http://$_proxy"
+# export HTTPS_PROXY="http://$_proxy"
+# export ALL_PROXY="socks5://$_proxy"
 
 # export PATH="$HOME/.local/bin:$PATH"
 
 # C, C++
-export CC=clang # clang-cl
-export CXX=clang++ # clang-cl
-export CMAKE_GENERATOR=Ninja
+export CC="clang" # "clang-cl"
+export CXX="clang++" # "clang-cl"
+export CMAKE_GENERATOR="Ninja"
 
 # Go
-export CGO_ENABLED=0
-export GO111MODULE=on
-export GOPROXY=https://goproxy.cn,direct
+export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$PATH"
+export PATH="$GOROOT/bin:$GOBIN:$PATH"
 ```
 
 ## vim
