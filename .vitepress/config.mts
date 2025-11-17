@@ -25,7 +25,7 @@ export default defineConfig({
     nav: [
       { text: "Homepage", link: "/" },
       { text: "Network", link: "/base/network" },
-      { text: "Vue", link: "/frontend/vue" },
+      { text: "React", link: "/frontend/react" },
       { text: "MySQL", link: "/backend/mysql" },
     ],
     sidebar,

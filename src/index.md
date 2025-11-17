@@ -16,8 +16,8 @@ hero:
       text: Algorithm
       link: /base/algorithm
     - theme: alt
-      text: Vue
-      link: /frontend/vue
+      text: React
+      link: /frontend/react
     - theme: alt
       text: MySQL
       link: /backend/mysql

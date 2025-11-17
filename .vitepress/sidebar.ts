@@ -3,6 +3,7 @@ export default {
     {
       items: [
         { text: "JS/TS", link: "/base/esnext" },
+        { text: "CSS", link: "/base/css" },
         { text: "Algorithm", link: "/base/algorithm" },
         { text: "Linux", link: "/base/linux" },
         { text: "Network", link: "/base/network" },
@@ -14,7 +15,6 @@ export default {
     {
       items: [
         { text: "Bundler", link: "/frontend/bundler" },
-        { text: "CSS", link: "/frontend/css" },
         { text: "Vue", link: "/frontend/vue" },
         { text: "Vue3", link: "/frontend/vue3" },
         { text: "vue-router", link: "/frontend/vue-router" },

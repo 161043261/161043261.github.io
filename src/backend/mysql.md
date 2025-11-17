@@ -282,7 +282,7 @@ create table <tableName> (
 
 ### 外键约束
 
-外键: 关联两表的数据, 保证数据的一致性, 完整性
+外键: 关联两表的数据, 确保数据的一致性, 完整性
 
 ```sql
 -- 创建子表时, 添加从子表某列指向父表某列的外键
@@ -473,7 +473,7 @@ mysql 的事务默认自动提交
 
 - 原子性 Atomicity: 事务是不可分割的最小操作单元, 要么全部成功, 要么全部失败
 - 一致性 Consistency: 事务完成时, 所有的数据必须保持一致
-- 隔离性 Isolation: 数据库提供的隔离机制 (隔离级别), 保证事务在不受外部并发操作影响的环境下执行
+- 隔离性 Isolation: 数据库提供的隔离机制 (隔离级别), 确保事务在不受外部并发操作影响的环境下执行
 - 持久性 Durability: 事务提交或回滚后, 对数据库中数据的改变是持久的
 
 ```sql
@@ -527,7 +527,7 @@ set [session | global] transaction isolation level {read uncommitted | read comm
 
 - 增、删、改操作满足事务的 4 大特性 ACID (Atomicity 原子性、Consistency 一致性、Isolation 隔离性、Durable 持久性)
 - 支持事务
-- 支持外键约束, 保证数据的一致性, 完整性
+- 支持外键约束, 确保数据的一致性, 完整性
 - 支持行级锁, 提高并发性能
 
 InnoDB 存储引擎的每个数据库对应一个目录, 每张表对应一个 .ibd 表空间文件, 存储索引和数据
@@ -953,7 +953,7 @@ InnoDB 的行锁是基于索引加的锁
 
 ### MVCC, Multi-Version Concurrency Control
 
-MVCC, Multi-Version Concurrency Control 多版本并发控制, 维护一个数据的多个历史版本 (快照), 提供非阻塞读, 保证并发读写时没有冲突
+MVCC, Multi-Version Concurrency Control 多版本并发控制, 维护一个数据的多个历史版本 (快照), 提供非阻塞读, 确保并发读写时没有冲突
 
 MVCC 的实现依赖于 3 个隐式字段、undo log 回滚日志、readView 快照视图
 
@@ -981,5 +981,5 @@ select name from users where id = 2 for update; -- transaction A; Momoko
 快照读: 简单的 select, 读取的是符合事务隔离级别要求的历史版本 (快照),「快照读」时不会加锁, 非阻塞
 
 - 对于 Read Committed 读已提交的事务隔离级别, 每次读取时都会生成新的快照
-- 对于 Repeatable Read 可重复读的事务隔离级别, 开启事务后, 只有第一次读取时会生成快照, 保证可重复读
+- 对于 Repeatable Read 可重复读的事务隔离级别, 开启事务后, 只有第一次读取时会生成快照, 确保可重复读
 - 对于 Serializable 串行化的事务隔离级别, 快照读退化为当前读

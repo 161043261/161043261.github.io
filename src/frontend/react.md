@@ -79,7 +79,7 @@ Fiber 架构: 解决大组件更新时的卡顿问题
    - Normal: 默认
    - Low: 低优先级
    - Idle: 空闲时执行
-3. 双缓存树 (Fiber Tree): 保证更新的原子性, 避免页面卡顿 (参考双缓存树)
+3. 双缓存树 (Fiber Tree): 确保更新的原子性, 避免页面卡顿 (参考双缓存树)
 4. 任务切片: React 通过时间分片, 将大渲染任务切片为多个工作单元 (unitOfWork), 低优先级的工作单元可以在浏览器空闲时执行 (类似 requestIdleCallback), 避免一次性完成大渲染任务 (即构建 workInProgressFiberTree), 导致主渲染线程阻塞
 
 ### 双缓存树
@@ -91,7 +91,7 @@ React 中有两颗 Fiber 树
 - 直接修改 currentFiberTree, 会导致页面卡顿, 页面同步更新, 不可中断
 - 协调阶段 reconcile 和提交阶段 commit
   - 协调阶段: 计算副作用, 构建 workInProgressFiberTree; 即预计算更新后的页面, 使用 diff 算法复用 fiber 节点, 找到最小更新, 协调阶段异步更新, 可以中断
-  - 提交阶段: 预计算完成后, 更新 currentFiberTree = workInProgressFiberTree, 将最小更新 (最小 DOM 操作) 提交到真实 DOM 上, 保证更新的原子性, 避免页面卡顿
+  - 提交阶段: 预计算完成后, 更新 currentFiberTree = workInProgressFiberTree, 将最小更新 (最小 DOM 操作) 提交到真实 DOM 上, 确保更新的原子性, 避免页面卡顿
 
 ### 浏览器在 1 帧中做了什么
 

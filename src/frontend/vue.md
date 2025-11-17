@@ -270,9 +270,6 @@ vnode: Virtual DOM Node
 
 ### diff 算法
 
-<!-- 2001.05.28 -->
-<image src="/diff.png" alt="diff" width="528rem" />
-
 1. 前序对比: 从头到尾对比 vnode 类型和 key, 相同则复用, 不同则转到 2
 2. 后序对比: 从尾到头对比 vnode 类型和 key, 相同则复用, 不同则转到 3
 3. 如果旧节点全部 patch, 有多余的新节点, 则新增 (挂载)

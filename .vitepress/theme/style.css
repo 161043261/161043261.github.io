@@ -1,11 +1,15 @@
 :root {
   --vp-font-family-base:
-    "Iosevka", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
-    "PingFang SC", "Microsoft YaHei", monospace !important;
+    "Rico Code", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
+    "Sarasa Gothic SC", "PingFang SC", "Microsoft YaHei", monospace !important;
   --vp-font-family-mono:
-    "Iosevka", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
-    "PingFang SC", "Microsoft YaHei", monospace !important;
-  --vp-c-brand-1: hsla(160, 100%, 37%, 1);
-  --vp-c-brand-2: hsla(160, 100%, 37%, 0.5);
-  --vp-c-brand-3: hsla(160, 100%, 37%, 1);
+    "Rico Code", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
+    "Sarasa Gothic SC", "PingFang SC", "Microsoft YaHei", monospace !important;
+  --vp-c-brand-1: hsl(228, 50%, 50%);
+  --vp-c-brand-2: hsla(228, 50%, 50%, 0.5);
+  --vp-c-brand-3: hsl(228, 50%, 50%);
+
+  .VPImage {
+    border-radius: 1rem;
+  }
 }
