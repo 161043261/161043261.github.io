@@ -1138,30 +1138,30 @@ const ctx = createContext(initialVal);
 ```tsx
 import { createContext, useContext, useState } from "react";
 
-interface ICtx {
+interface ICtxType {
   cnt: number;
   setCnt: (cnt: number) => void;
 }
 
-const cntCtx = createContext<ICtx>({} as ICtx /* initialVal */);
+const CntCtx = createContext<ICtxType>({} as ICtxType /* initialVal */);
 
 function Child() {
-  const ctxVal = useContext<ICtx>(cntCtx); // ctxVal: readonly
+  const ctxVal = useContext<ICtxType>(CntCtx); // ctxVal: readonly
   const { cnt, setCnt } = ctxVal;
   return (
     <>
-      <div className="border-t-1">Child cnt: {cnt} </div>
+      <div className="border-t">Child cnt: {cnt} </div>
       <button onClick={() => setCnt(cnt + 1)}>Child addCnt</button>
     </>
   );
 }
 
 function Parent() {
-  const ctxVal = useContext<ICtx>(cntCtx); // ctxVal: readonly
+  const ctxVal = useContext<ICtxType>(CntCtx); // ctxVal: readonly
   const { cnt, setCnt } = ctxVal;
   return (
     <>
-      <div className="border-t-1">Parent cnt: {cnt}</div>
+      <div className="border-t">Parent cnt: {cnt}</div>
       <button onClick={() => setCnt(cnt + 1)}>Parent addCnt</button>
       <Child />
     </>
@@ -1180,20 +1180,20 @@ export default function App() {
       <button onClick={() => setInnerCnt(innerCnt + 1)}>App addInnerCnt</button>
 
       {/* props 键名必须是 value */}
-      <cntCtx.Provider value={{ cnt: outerCnt, setCnt: setOuterCnt }}>
+      <CntCtx.Provider value={{ cnt: outerCnt, setCnt: setOuterCnt }}>
         <Parent />
-        <cntCtx.Consumer>
+        <CntCtx.Consumer>
           {(ctxVal) => "[outer] ctxVal: " + JSON.stringify(ctxVal)}
-        </cntCtx.Consumer>
+        </CntCtx.Consumer>
 
         {/* props 键名必须是 value */}
-        <cntCtx.Provider value={{ cnt: innerCnt, setCnt: setInnerCnt }}>
+        <CntCtx.Provider value={{ cnt: innerCnt, setCnt: setInnerCnt }}>
           <Parent />
-          <cntCtx.Consumer>
+          <CntCtx.Consumer>
             {(ctxVal) => "[inner] ctxVal: " + JSON.stringify(ctxVal)}
-          </cntCtx.Consumer>
-        </cntCtx.Provider>
-      </cntCtx.Provider>
+          </CntCtx.Consumer>
+        </CntCtx.Provider>
+      </CntCtx.Provider>
     </div>
   );
 }

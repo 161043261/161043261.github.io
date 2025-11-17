@@ -15,7 +15,6 @@ export default {
       items: [
         { text: "Bundler", link: "/frontend/bundler" },
         { text: "CSS", link: "/frontend/css" },
-        { text: "CSS(2)", link: "/frontend/css2" },
         { text: "Vue", link: "/frontend/vue" },
         { text: "Vue3", link: "/frontend/vue3" },
         { text: "vue-router", link: "/frontend/vue-router" },
@@ -23,6 +22,7 @@ export default {
         { text: "React", link: "/frontend/react" },
         { text: "react-router", link: "/frontend/react-router" },
         { text: "Zustand", link: "/frontend/zustand" },
+        { text: "Next", link: "/frontend/next" },
       ],
     },
   ],
@@ -31,7 +31,7 @@ export default {
       items: [
         { text: "MongoDB", link: "/backend/mongodb" },
         { text: "MySQL", link: "/backend/mysql" },
-        { text: "Koa.js", link: "/backend/koa" },
+        { text: "Koa", link: "/backend/koa" },
         { text: "Redis", link: "/backend/redis" },
       ],
     },

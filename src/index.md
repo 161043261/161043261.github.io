@@ -4,7 +4,7 @@ layout: home
 hero:
   name: ほんじつの
   text: おんがく集
-  tagline: <a href="/resume.pdf" target="_blank">Do NOT click me</a>
+  tagline: <a href="/resume.pdf" target="_blank">_</a>
   image:
     src: /index.jpg
     alt: index
@@ -28,5 +28,5 @@ features:
   - title: Frontend
     details: HTML/CSS, npm/pnpm, Vue, vue-router, Pinia, React, react-router, Zustand, Vite, Webpack
   - title: Backend
-    details: Express.js, Koa.js, Redis, MongoDB, MySQL, Kafka, Protobuf
+    details: Express, Koa, Redis, MongoDB, MySQL, Kafka, Protobuf
 ---

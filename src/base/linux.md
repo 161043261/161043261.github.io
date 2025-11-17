@@ -21,12 +21,6 @@ export EDITOR="vim"
 export CC="clang" # "clang-cl"
 export CXX="clang++" # "clang-cl"
 export CMAKE_GENERATOR="Ninja"
-
-# Go
-export GOROOT="/usr/local/go"
-export GOPATH="$HOME/go"
-export GOBIN="$GOPATH/bin"
-export PATH="$GOROOT/bin:$GOBIN:$PATH"
 ```
 
 ## vim
@@ -71,7 +65,7 @@ apt-transport-https \
 build-essential \
 ca-certificates clang clang-format clang-tools clangd cmake curl \
 firewalld \
-gdb git golang-go \
+gdb git \
 iperf3 \
 lld lldb llvm \
 net-tools ninja-build \

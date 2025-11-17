@@ -1,6 +1,6 @@
 # Algorithm
 
-## Node.js ACM 模式
+## ACM 模式
 
 ```js
 const { createInterface } = require("readline");
