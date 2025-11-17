@@ -49,7 +49,7 @@ JS 是单线程的
 
 chrome 为每一个页面创建一个渲染进程, 渲染进程是多线程的, 主要包含
 
-- **GUI 渲染线程**: 负责渲染页面, 解析 HTML, CSS; 构建 DOM 树, CSSOM 树; 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree); 布局和绘制，回流和重绘等
+- **GUI 渲染线程**: 负责渲染页面, 解析 HTML, CSS; 构建 DOM 树, CSSOM 树; 将 DOM 树和 CSSOM 树合并为渲染树 (Render Tree); 布局和绘制, 回流和重绘等
   - 当页面需要回流 (reflow) 或重绘 (repaint) 时, 执行 GUI 渲染线程
   - GUI 渲染线程和 JS 引擎线程是互斥执行的, GUI 渲染线程执行时, JS 引擎线程会被挂起; JS 引擎线程执行时, GUI 渲染线程会被挂起
   - requestAnimationFrame 依赖 GUI 渲染线程
