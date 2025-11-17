@@ -20,7 +20,7 @@ pnpm create next-app@latest
 
 ## React Compiler
 
-React Compiler: 自动优化性能
+React Compiler 自动优化性能
 
 ```bash
 pnpm add babel-plugin-react-compiler -D
@@ -111,12 +111,12 @@ function ExpensiveComponent({ data, onClick }) {
 ```txt
 ./src/app/about
 ├── error.tsx
-├── he
+├── him
 │   └── page.tsx
 ├── layout.tsx
 ├── loading.tsx
 ├── page.tsx
-├── she
+├── her
 │   └── page.tsx
 └── template.tsx
 ```
@@ -131,11 +131,12 @@ function ExpensiveComponent({ data, onClick }) {
 "use client"; // 类组件必须是客户端组件
 
 import Link from "next/link";
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, Suspense } from "react";
 
-interface IProps {
+interface IProps extends LayoutProps<"/about"> {
   children: ReactNode;
 }
+
 interface IState {
   cnt: number;
 }
@@ -163,9 +164,9 @@ class AboutLayout extends Component<IProps, IState> {
         <div>cnt {cnt}</div>
         <button onClick={this.handleClick}>addCnt</button>
         <header>AboutLayout header</header>
-        {children}
-        <Link href="/about/he">/about/he</Link>
-        <Link href="/about/she">/about/she</Link>
+        <Suspense fallback={<>About loading...</>}>{children}</Suspense>
+        <Link href="/about/him">/about/him</Link>
+        <Link href="/about/her">/about/her</Link>
         <footer>AboutLayout footer</footer>
       </>
     );
@@ -178,7 +179,6 @@ export default AboutLayout;
 ```tsx [template.tsx]
 "use client"; // 有状态的组件必须是客户端组件
 
-import Link from "next/link";
 import { ReactNode, useState } from "react";
 
 interface IProps {
@@ -197,8 +197,6 @@ const AboutTemplate = function (props: IProps) {
       <button onClick={handleClick}>addCnt</button>
       <header>AboutTemplate header</header>
       {children}
-      <Link href="/about/he">/about/he</Link>
-      <Link href="/about/she">/about/she</Link>
       <footer>AboutTemplate footer</footer>
     </>
   );
@@ -226,14 +224,14 @@ async function AboutPage() {
 
 export default AboutPage;
 
-// he/page.tsx
-export default function AboutHePage() {
-  return <>About He</>;
+// him/page.tsx
+export default function AboutHimPage() {
+  return <>About Him</>;
 }
 
-// she/page.tsx
-export default function AboutShePage() {
-  return <>About She</>;
+// her/page.tsx
+export default function AboutHerPage() {
+  return <>About Her</>;
 }
 ```
 
@@ -270,10 +268,90 @@ export default function GlobalNotFound() {
 路由导航的 4 种方式
 
 1. `<Link />` 组件
-2. useRouter hook, 客户端组件可以使用
-3. redirect 函数, 服务器组件可以使用
+2. useRouter hook, 客户端组件使用
+3. redirect, permanentRedirect 函数, 服务器组件使用
 4. history API
 
 ### `<Link />` 组件
 
 增强的 `<a />` 标签
+
+```tsx
+<Link
+  href="/about/her"
+  // prefetch 预获取目的页面, 默认 true, 生产环境有效
+  prefetch
+  // 禁止默认滚动行为: 滚动到顶部
+  scroll={false}
+  // 替换当前页面
+  replace
+>
+  /about/her
+</Link>
+```
+
+::: code-group
+
+```tsx [about/page.tsx]
+<Link href={{ pathname: "/about/him", query: { name: "lark", age: 24 } }}>
+  /about/him?name=lark&age=24
+</Link>
+```
+
+```tsx [about/him/page.tsx]
+"use client";
+
+import { useSearchParams } from "next/navigation";
+
+export default function AboutHimPage() {
+  const searchParams = useSearchParams();
+  return (
+    <>
+      About Him
+      <div>name: {searchParams.get("name") ?? "null"}</div>
+      <div>
+        age: {searchParams.has("age") ? searchParams.get("age") : "null"}
+      </div>
+    </>
+  );
+}
+```
+
+:::
+
+### useRouter hook
+
+```tsx
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function HimPage() {
+  const router = useRouter();
+  return (
+    <>
+      <button onClick={() => router.push("/about")}>history.pushState()</button>
+      <button onClick={() => router.replace("/about")}>
+        history.replaceState()
+      </button>
+      <button onClick={() => router.back()}>history.back()</button>
+      <button onClick={() => router.forward()}>history.forward()</button>
+      <button onClick={() => router.refresh()}>refresh /about/him</button>
+      <button onClick={() => router.prefetch("/about/her")}>
+        prefetch /about/her
+      </button>
+    </>
+  );
+}
+```
+
+### redirect, permanentRedirect
+
+对比 redirect, permanentRedirect: 状态码不同
+
+- redirect: 307 Temporary Redirect
+- permanentRedirect: 308 Permanent Redirect
+
+```ts
+redirect("/login");
+```

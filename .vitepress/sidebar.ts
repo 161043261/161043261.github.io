@@ -31,7 +31,7 @@ export default {
       items: [
         { text: "MongoDB", link: "/backend/mongodb" },
         { text: "MySQL", link: "/backend/mysql" },
-        { text: "Koa", link: "/backend/koa" },
+        { text: "Express", link: "/backend/express" },
         { text: "Redis", link: "/backend/redis" },
       ],
     },
