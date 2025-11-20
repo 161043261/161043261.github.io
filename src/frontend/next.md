@@ -355,3 +355,67 @@ export default function HimPage() {
 ```ts
 redirect("/login");
 ```
+
+## 后端路由
+
+### 查询参数, 请求体参数
+
+app/api/user/route.ts
+
+```ts
+// route.ts
+import { NextRequest, NextResponse } from "next/server";
+
+// HEAD, GET, POST, PUT, DELETE, PATCH, OPTIONS
+// Export the uppercase 'GET' method name
+export async function GET(request: NextRequest) {
+  const queryParams = request.nextUrl.searchParams;
+  const name = queryParams.get("name");
+  const age = queryParams.get("age");
+  return NextResponse.json({
+    message: `GET user OK: name=${name}, age=${age}`,
+  });
+}
+
+interface IBody {
+  name: string;
+  age: number;
+}
+
+export async function POST(request: NextRequest) {
+  // request.json()
+  // request.formData()
+  // request.text()
+  // request.blob()
+  // request.arrayBuffer()
+  const body = (await request.json()) as IBody;
+  const { name, age } = body;
+  return NextResponse.json(
+    {
+      message: `POST user OK: name=${name}, age=${age}`,
+    },
+    { status: 201 }, // HTTP response status code: 201 Created
+  );
+}
+```
+
+### url 路径参数
+
+```ts
+import { NextRequest, NextResponse } from "next/server";
+
+interface IParams {
+  id: string;
+}
+
+// Export the uppercase 'GET' method name
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<IParams> },
+) {
+  const { id } = await params;
+  return NextResponse.json({
+    message: `GET user OK: id=${id}`,
+  });
+}
+```

@@ -17,6 +17,12 @@ export EDITOR="vim"
 
 # export PATH="$HOME/.local/bin:$PATH"
 
+# go env -w CGO_ENABLED=0
+# go env -w GO111MODULE=on
+# go env -w GOPROXY=https://goproxy.io,direct
+export GOPATH="$HOME/go:$PATH"
+export GOBIN="$GOPATH/bin:$PATH"
+
 # C, C++
 export CC="clang" # "clang-cl"
 export CXX="clang++" # "clang-cl"
