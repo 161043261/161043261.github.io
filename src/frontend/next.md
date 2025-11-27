@@ -828,3 +828,21 @@ export const config: ProxyConfig = {
   matcher: "/api/:path*",
 };
 ```
+
+## CSR, SSR, SSG
+
+- CSR, Client Side Rendering 客户端渲染: 例如 Vue, React
+  - 首屏加载慢
+  - SEO, Search Engine Optimization 差
+- SSR, Server Side Rendering 服务端渲染: 例如 Nuxt.js, Next.js
+  - 首屏加载快
+  - SEO, Search Engine Optimization 优
+  - 服务器压力大
+- SSG, Static Site Generation 静态站点生成: 例如 Vitepress, Astro
+  - 首屏加载最快
+  - SEO, Search Engine Optimization 最优
+  - CDN 分发, 服务器压力小
+
+### Hydration 水合
+
+What is Hydration?

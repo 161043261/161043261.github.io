@@ -1,13 +1,14 @@
 import { defineConfig } from "vitepress";
-import sidebar from "./sidebar";
+import { nav, sidebar} from "./nav-sidebar";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/", // repository name
   markdown: {
     lineNumbers: true,
   },
   title: "lovelove",
-  titleTemplate: "lovelove",
+  titleTemplate: false,
   description: "lovelove",
   head: [
     ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
@@ -22,13 +23,12 @@ export default defineConfig({
     },
     outline: [2, 3],
     // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: "Homepage", link: "/" },
-      { text: "Network", link: "/base/network" },
-      { text: "React", link: "/frontend/react" },
-      { text: "MySQL", link: "/backend/mysql" },
-    ],
+    nav,
     sidebar,
+    editLink: {
+      pattern: "https://github.com/161043261/161043261.github.io/edit/main/src/:path",
+      text: "Edit this page on GitHub",
+    },
     socialLinks: [
       { icon: "github", link: "https://github.com/161043261" },
       { icon: "bilibili", link: "https://b23.tv/vCth43f" },
