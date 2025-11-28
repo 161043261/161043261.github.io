@@ -1,9 +1,9 @@
 ---
-title: Next
-description: Next
+title: Next.js
+description: Next.js
 ---
 
-# Next
+# Next.js
 
 - AI, 提供 AI SDK
 - SSR, Server-Side Rendering 支持服务端渲染

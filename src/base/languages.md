@@ -3,7 +3,7 @@ title: Languages
 description: Languages
 ---
 
-## Languages
+# Languages: JS/TS/C++/Python
 
 ### npm 命令
 

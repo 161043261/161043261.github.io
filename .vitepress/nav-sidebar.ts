@@ -9,7 +9,8 @@ const baseItems = [
 ];
 
 const frontendItems = [
-  { text: "Webpack. Vite, Rollup", link: "/frontend/webpack" },
+  { text: "Angular", link: "/frontend/angular" },
+  { text: "Webpack/Vite/Rollup", link: "/frontend/webpack" },
   { text: "Vue3", link: "/frontend/vue3" },
   { text: "Vue3 Pro", link: "/frontend/vue3-pro" },
   { text: "vue-router", link: "/frontend/vue-router" },
@@ -17,13 +18,13 @@ const frontendItems = [
   { text: "React", link: "/frontend/react" },
   { text: "react-router", link: "/frontend/react-router" },
   { text: "Zustand", link: "/frontend/zustand" },
-  { text: "Next", link: "/frontend/next" },
+  { text: "Next.js", link: "/frontend/next" },
 ];
 
 const backendItems = [
   { text: "MongoDB", link: "/backend/mongodb" },
   { text: "MySQL", link: "/backend/mysql" },
-  { text: "Express, Koa, Nest", link: "/backend/express" },
+  { text: "Express.js/Koa.js/Nest.js", link: "/backend/express" },
   { text: "Redis", link: "/backend/redis" },
 ];
 

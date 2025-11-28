@@ -1,9 +1,9 @@
 ---
-title: Webpack, Vite, Rollup
-description: Webpack, Vite, Rollup
+title: Webpack/Vite/Rollup
+description: Webpack/Vite/Rollup
 ---
 
-# Webpack, Vite, Rollup
+# Webpack/Vite/Rollup
 
 ## webpack 基本概念
 
