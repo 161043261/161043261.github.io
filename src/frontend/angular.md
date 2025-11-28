@@ -238,7 +238,13 @@ input.error {
 ::: code-group
 
 ```ts [app/app.ts]
-import { Component, signal } from "@angular/core";
+import {
+  Component,
+  computed,
+  Signal,
+  signal,
+  WritableSignal,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -249,9 +255,12 @@ import { FormsModule } from "@angular/forms";
 })
 export class App {
   // firstName = ''; // [!code --]
-  firstName = signal<string>(""); // [!code ++]
+  firstName: WritableSignal<string> = signal<string>(""); // [!code ++]
   // lastName = ''; // [!code --]
-  lastName = signal<string>(""); // [!code ++]
+  lastName: WritableSignal<string> = signal<string>(""); // [!code ++]
+  fullName: Signal<string> = computed(
+    () => `${this.firstName()} ${this.lastName()}`,
+  );
 
   isValid(name: string) {
     const len = name.trim().length;
@@ -261,20 +270,18 @@ export class App {
 
   handleFullName(e: Event) {
     e.preventDefault();
-    if (!this.firstName || !this.lastName) {
+    if (!this.firstName() || !this.lastName()) {
       alert("Warning: firstName or lastName is empty");
     } else {
-      alert(`${this.firstName}, ${this.lastName}`);
+      alert(`${this.firstName()}, ${this.lastName()}`);
     }
-    // this.firstName = ''; // [!code --]
-    this.firstName.set(""); // [!code ++]
-    // this.lastName = ''; // [!code --]
-    this.lastName.update((oldVal) => ""); // [!code ++]
+    this.firstName.set("");
+    this.lastName.update((oldVal) => "");
   }
 }
 ```
 
-```html{8,17} [app/app.html]
+```html{8,17,19} [app/app.html]
 <form (submit)="handleFullName($event)">
   <label for="app-firstName">firstName</label>
   <input
@@ -293,8 +300,82 @@ export class App {
     [(ngModel)]="lastName"
     [class]="isValid(lastName())"
   />
-  <button type="submit">fullName</button>
+  <button type="submit">fullName {{ fullName() }}</button>
 </form>
+```
+
+```css [app/app.css]
+input.error {
+  border: 3px solid slateblue;
+  border-radius: 3px;
+}
+```
+
+:::
+
+## @if, @else if, @else, @for
+
+::: code-group
+
+```ts
+import { Component, signal, WritableSignal } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+
+interface ITodoItem {
+  id: number;
+  title: string;
+  done: boolean;
+}
+
+@Component({
+  imports: [FormsModule],
+  selector: "app-root",
+  templateUrl: "./app.html",
+  styleUrl: "./app.css",
+})
+export class App {
+  inputText: WritableSignal<string> = signal<string>("");
+  todoList: WritableSignal<ITodoItem[]> = signal<ITodoItem[]>([
+    { id: 0, title: "React19", done: true },
+    { id: 1, title: "Vue3", done: true },
+    { id: 2, title: "Angular", done: false },
+  ]);
+  handleClickAdd() {
+    this.todoList.update((list) => {
+      return [
+        ...list,
+        { id: list.length, title: this.inputText(), done: false },
+      ];
+    });
+  }
+  handleClickDelete(id: number) {
+    this.todoList.update((list) => list.filter((item) => item.id !== id));
+  }
+}
+```
+
+```html [app/app.html]
+<!-- <ul>
+  @for (todo of todoList(); track idx; let idx = $index) {
+  <li>{{ idx }}. {{ todo.title }}</li>
+  }
+  @for (todo of todoList(); track $index) {
+  <li>{{ $index }}. {{ todo.title }}</li>
+  }
+</ul> -->
+
+<ul>
+  @for (todo of todoList(); track todo.id) {
+  <li>
+    {{ todo.id }}. {{ todo.title }}
+    <button type="button" (click)="handleClickDelete(todo.id)">Delete</button>
+  </li>
+  }
+</ul>
+
+<label for="app-title">title</label>
+<input id="app-title" type="text" [(ngModel)]="inputText" />
+<button type="button" (click)="handleClickAdd()">Add</button>
 ```
 
 :::
