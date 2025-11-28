@@ -313,7 +313,11 @@ input.error {
 
 :::
 
-## @if, @else if, @else, @for
+## `@if`, `@else if`, `@else`, ...
+
+- `@if`, `@else if`, `@else`
+- `@for`, `@empty`
+- `@switch`, `@case`, `@default`
 
 ::: code-group
 
@@ -351,26 +355,53 @@ export class App {
   handleClickDelete(id: number) {
     this.todoList.update((list) => list.filter((item) => item.id !== id));
   }
+  handleClickDone(id: number) {
+    this.todoList.update((list) =>
+      list.map((item) => {
+        if (item.id === id) {
+          item.done = !item.done;
+        }
+        return item;
+      }),
+    );
+  }
 }
 ```
 
 ```html [app/app.html]
 <!-- <ul>
-  @for (todo of todoList(); track idx; let idx = $index) {
-  <li>{{ idx }}. {{ todo.title }}</li>
-  }
   @for (todo of todoList(); track $index) {
   <li>{{ $index }}. {{ todo.title }}</li>
+  }
+  @for (todo of todoList(); track idx; let idx = $index) {
+  <li>{{ idx }}. {{ todo.title }}</li>
   }
 </ul> -->
 
 <ul>
-  @for (todo of todoList(); track todo.id) {
-  <li>
+  @if (todoList().length) { @for (todo of todoList(); track todo.id) {
+  <li [class]="todo.done ? 'deleted-text' : ''">
     {{ todo.id }}. {{ todo.title }}
+    <button type="button" (click)="handleClickDone(todo.id)">
+      @if (todo.done) { Undo } @else { Done }
+    </button>
     <button type="button" (click)="handleClickDelete(todo.id)">Delete</button>
   </li>
-  }
+  }} @else { Todo list is empty }
+</ul>
+
+<ul>
+  @for (todo of todoList(); track todo.id) {
+  <li [class]="todo.done ? 'deleted-text' : ''">
+    {{ todo.id }}. {{ todo.title }}
+    <button type="button" (click)="handleClickDone(todo.id)">
+      @if (todo.done) { Undo } @else { Done }
+    </button>
+    <button type="button" (click)="handleClickDelete(todo.id)">Delete</button>
+  </li>
+  } @empty { Todo list is empty }
+
+  <!-- @switch, @case, @default -->
 </ul>
 
 <label for="app-title">title</label>
