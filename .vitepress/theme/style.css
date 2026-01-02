@@ -1,0 +1,15 @@
+:root {
+  --vp-font-family-base:
+    "Rico Code", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
+    "PingFang SC", "Microsoft YaHei", monospace !important;
+  --vp-font-family-mono:
+    "Rico Code", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
+    "PingFang SC", "Microsoft YaHei", monospace !important;
+  --vp-c-brand-1: #46bf40;
+  --vp-c-brand-2: hsla(117, 50%, 50%, 0.5);
+  --vp-c-brand-3: hsl(117, 50%, 50%);
+
+  .VPImage {
+    border-radius: 1rem;
+  }
+}
