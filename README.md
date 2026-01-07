@@ -94,19 +94,8 @@ export default {
 
 ## Databases
 
-- PostgreSQL
 - MySQL
-- SQLite
 - Redis
-- MongoDB
+- Kafka
 - ElasticSearch
-
-## Frameworks
-
-- React
-- Next.js
-- Express
-- Angular
-- Vue.js
-- FastAPI
-- SpringBoot
+- ClickHouse

@@ -5,9 +5,11 @@
 - 推荐使用数据模式
 - `<Link />`, `<NavLink />` 类似 Vue 的 `<RouterLink />`
 
+### 数据模式
+
 ::: code-group
 
-```tsx [数据模式 @/router/index.tsx]
+```tsx [@/router/index.tsx]
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import { createBrowserRouter } from "react-router";
@@ -24,7 +26,7 @@ export const router = createBrowserRouter([
 ]);
 ```
 
-```tsx [数据模式 @/main.tsx]
+```tsx [@/main.tsx]
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 import { router } from "@/router/index.tsx";
@@ -35,7 +37,11 @@ const root = createRoot(container);
 root.render(<RouterProvider router={router} />);
 ```
 
-```tsx [声明模式 @/main.tsx]
+:::
+
+### 声明模式
+
+```tsx
 import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
@@ -55,34 +61,6 @@ root.render(
   </BrowserRouter>,
 );
 ```
-
-```tsx [@/pages/Home.tsx]
-import { Link } from "react-router";
-
-export default function Home() {
-  return (
-    <>
-      Home
-      <Link to="/about">about</Link>
-    </>
-  );
-}
-```
-
-```tsx [@/pages/About.tsx]
-import { NavLink } from "react-router";
-
-export default function About() {
-  return (
-    <>
-      About
-      <NavLink to="/">home</NavLink>
-    </>
-  );
-}
-```
-
-:::
 
 ## 路由模式
 
@@ -161,9 +139,13 @@ export default function App() {
 
 :::
 
+### `<Outlet />` 组件
+
+父组件使用 `<Outlet />` 组件, 作为子路由组件的容器, 类似 Vue 的 `<RouterView />`
+
 ### 嵌套路由, 索引路由, 布局路由, 前缀路由
 
-- 嵌套路由: 有 children 属性, 父组件默认不挂载子路由组件, 需要父组件使用 `<Outlet />` 组件, 作为子路由组件的容器, 以挂载子路由组件
+- 嵌套路由: 有 children 属性, 需要使用 `<Outlet />` 组件
 - 索引路由: `index: true`, 即默认二级路由
 - 布局路由: 没有 path 属性, 只提供统一的页面布局
 - 前缀路由: 没有 Component 或 element 属性, 只提供统一的路由前缀
@@ -397,10 +379,9 @@ export default function About() {
 
 :::
 
-### state 传递参数
+### 使用 state 传递参数
 
-- 使用 state 传递的参数, url 中不显示
-- 使用 state 传递参数时, 不方便通过 url 分享
+使用 state 传递的参数, url 中不显示, 不方便通过 url 分享
 
 ::: code-group
 
@@ -466,7 +447,7 @@ export default function About() {
 
 :::
 
-## 懒加载
+## hooks: useNavigate, useLocation, useNavigation
 
 懒加载: 延迟加载路由组件, 代码分包
 

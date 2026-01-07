@@ -178,10 +178,10 @@ msgChan.port2.postMessage("Message from msgChan.port2");
 ## JSX.Element, React.ReactElement, React.ComponentType, React.FC, React.ReactNode
 
 - `React.ReactNode`: React 可以渲染的所有类型
-- `JSX.Element`, `React.ReactElement`: 使用 `React.createElement()` 或 JSX 语法创建的元素的类型
-- `React.ComponentType`: 组件 (函数组件, 类组件) 的类型
-- `React.FC`, `React.FunctionComponent`: 函数组件的类型
-- Vue 的 `VNode`: 是 `h` 函数的返回值类型
+- `JSX.Element`, `React.ReactElement`: 使用 `React.createElement()` 或 JSX 语法创建的元素的类型, 是一个 JS 对象类型
+- `React.ComponentType`: 组件 (函数组件, 类组件) 的类型, 是一个函数类型
+- `React.FC`, `React.FunctionComponent`: 函数组件的类型, 是一个函数类型
+- Vue 的 `VNode`: 是 `h` 函数的返回值类型, 类似 JSX.Element, React.ReactElement
 - Vue 的 `Component`: 组件 (选项式组件, 组合式组件) 的类型, 也是 `defineComponent` 函数的返回值类型
 - Vue 的 `RenderFunction`: `type RenderFunction = () => VNode | VNode[]`
 
@@ -195,9 +195,19 @@ type ReactNode =
   | ReactElement
   | ReactNode[];
 
-const Comp: ReactFC<IProps> = (props) => <>Comp</>;
+const Comp: ComponentType<IProps> = (props) => {
+  const element: JSX.Element = <>Hello, React!</>;
+  return element;
+};
 
-const hoc = (Comp: React.ComponentType<IProps>) => <Comp />;
+const HOC = (FC: FunctionComponent<IProps>) => {
+  const element: ReactElement = <FC />;
+  return element;
+};
+
+// JSX.Element, React.ReactElement ≈ Vue.VNode
+// React.ComponentType, React.FC ≈ Vue.RenderFunction
+// <FunctionComponent /> ≈ Component function call
 ```
 
 ### React.FC 的 children 属性

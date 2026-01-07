@@ -434,7 +434,41 @@ watch(
 </template>
 ```
 
-## 编写 vite 插件解析 JSX
+## 集成 JSX
+
+```tsx
+import {
+  defineComponent,
+  type Component,
+  type RenderFunction,
+  type VNode,
+} from "vue";
+
+interface IProps {
+  element: string | VNode;
+}
+
+const MyComponent: Component<IProps> = defineComponent<IProps>(
+  (props: IProps /** , ctx */) => {
+    const { element } = props;
+    const vNode: VNode = (
+      <div>
+        {import.meta.env.DEV ? "My Component" : ""}
+        {element}
+      </div>
+    );
+    const renderFunc: RenderFunction = () => vNode;
+    return renderFunc;
+  },
+  {
+    props: ["element"],
+  },
+);
+
+export default MyComponent;
+```
+
+### 编写 vite 插件解析 JSX
 
 安装依赖
 
