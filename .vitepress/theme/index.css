@@ -1,0 +1,55 @@
+:root {
+  --vp-font-family-base:
+    "Iosevka", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
+    "PingFang SC", "Microsoft YaHei", monospace !important;
+  --vp-font-family-mono:
+    "Iosevka", "Maple Mono", "Cascadia Code", "Menlo", "DejaVu Sans Mono",
+    "PingFang SC", "Microsoft YaHei", monospace !important;
+  --vp-c-brand-1: #41b883;
+  --vp-c-brand-2: #41b88380;
+  --vp-c-brand-3: #41b883;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(180deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.Layout {
+  /* .VPSidebar {
+  } */
+  .VPContent {
+    .VPHome {
+      .VPHero {
+        .container > .image > .image-container {
+          animation: rotate 10s linear infinite;
+        }
+      }
+    }
+
+    .VPDoc {
+      .aside > .aside-container > .aside-content {
+        .VPDocAside {
+          .VPDocAsideOutline {
+            .VPDocOutlineItem.root {
+              a {
+                height: 1rem;
+                line-height: 1rem;
+                &:hover {
+                  color: var(--vp-c-brand-1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

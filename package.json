@@ -1,0 +1,30 @@
+{
+  "author": "github.com/161043261",
+  "description": "homepage",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
+    "vitepress": "^1.6.4"
+  },
+  "keywords": [
+    "homepage"
+  ],
+  "license": "ISC",
+  "lint-staged": {
+    "*.{json,jsonc,js,cjs,mjs,jsx,ts,cts,mts,tsx,html,vue,css,scss,md,mdx}": [
+      "pnpm format"
+    ]
+  },
+  "name": "homepage",
+  "packageManager": "pnpm@10.5.2",
+  "scripts": {
+    "build": "rm -rf ./vitepress/dist && vitepress build",
+    "dev": "vitepress dev",
+    "format": "prettier --write ./docs .vitepress/theme",
+    "prepare": "husky",
+    "preview": "vitepress preview"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}
