@@ -783,6 +783,7 @@ export const config: ProxyConfig = {
 - Hydration 客户端水合
 - RSC, React Server Components 服务器组件
   - 使用 "use server" 指令
+  - 服务器组件必须是 async 异步函数
   - 服务器组件在服务器渲染, 客户端局部水合, 避免全量水合导致的性能损耗
   - 服务器组件不会被打包, 减小打包产物体积
   - 服务器组件可以访问 Node.js API, 数据库
@@ -1378,3 +1379,42 @@ export default function Login() {
 ```
 
 :::
+
+## 环境变量
+
+::: code-group
+
+```json [package.json]
+{
+  "scripts": {
+    "dev": "BASE_URL=/homepage/ NEXT_PUBLIC_BASE_URL=/homepage/ next dev"
+  }
+}
+```
+
+```ts [page.tsx]
+"use client";
+
+export default function Login() {
+  return (
+    <>
+      <div>process.env.NODE_ENV {process.env.NODE_ENV}</div>
+      {/* process.env.BASE_URL 只能在服务器组件中访问 */}
+      <div>process.env.BASE_URL {process.env.BASE_URL}</div>
+      {/* process.env.NEXT_PUBLIC_BASE_URL
+      以 NEXT_PUBLIC_ 开头的环境变量, 服务器组件, 客户端组件中都可以访问 */}
+      <div>process.env.NEXT_PUBLIC_BASE_URL {process.env.NEXT_PUBLIC_BASE_URL}</div>
+    </>
+  );
+}
+```
+
+:::
+
+### 优先级
+
+- `process.env`, 例如 `BASE_URL=/homepage/ NEXT_PUBLIC_BASE_URL=/homepage/ next dev`
+- `.env.$NODE_ENV.local`, $NODE_ENV 是 Next.js 自动注入的环境变量, 开发模式 $NODE_ENV == development, 生产模式 $NODE_ENV == production
+- `.env.local`
+- `.env.$NODE_ENV`
+- `.env`

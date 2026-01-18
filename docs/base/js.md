@@ -1,5 +1,21 @@
 # JS/TS
 
+## 错误处理方式
+
+|                            | `try/catch` | `window.onerror` | `window.addEventListener('error')` | `window.addEventListener('unhandledrejection')` |
+| -------------------------- | ----------- | ---------------- | ---------------------------------- | ----------------------------------------------- |
+| 同步错误                   | Y           | Y                | Y                                  |                                                 |
+| 异步回调错误               |             | Y                | Y                                  |                                                 |
+| 未处理的 Promise rejection |             |                  |                                    | Y                                               |
+| async/await 异步错误       | Y           |                  |                                    | Y (未 try/catch 的 async/await 异步错误 )       |
+| 资源加载错误               |             |                  | Y                                  |                                                 |
+| 语法错误                   |             | Y                | Y                                  |                                                 |
+
+- `try/catch` 可以捕获同步错误, async/await 异步错误
+- `window.onerror` 可以捕获同步错误, 异步回调错误, 语法错误; 不能捕获资源加载错误
+- `window.addEventListener('error')` 资源加载失败时, 会触发 error 事件, 对比 `window.onerror`, `window.addEventListener('error')` 还可以捕获资源加载错误
+- `window.addEventListener('unhandledrejection')` 可以捕获未处理的 Promise rejection, 和未 try/catch 的 async/await 异步错误
+
 ## 编译
 
 | 阶段                                     |                                                                                                          |
@@ -17,6 +33,9 @@ npm config list
 
 npm get registry
 npm config set registry https://registry.npmmirror.com
+
+npm config get script-shell
+npm config set script-shell "C:/Program Files/Git/bin/bash.exe"
 ```
 
 ## Promise

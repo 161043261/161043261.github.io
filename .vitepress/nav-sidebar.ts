@@ -28,10 +28,10 @@ const backendItems = [
 ];
 
 const nav: DefaultTheme.NavItem[] = [
-  { text: "Homepage", link: "/" },
-  { text: "Base", items: baseItems, activeMatch: "^/base/" },
-  { text: "Frontend", items: frontendItems, activeMatch: "^/frontend/" },
-  { text: "Backend", items: backendItems, activeMatch: "^/backend/" },
+  { text: "homepage", link: "/" },
+  { text: "base", items: baseItems, activeMatch: "^/base/" },
+  { text: "frontend", items: frontendItems, activeMatch: "^/frontend/" },
+  { text: "backend", items: backendItems, activeMatch: "^/backend/" },
 ];
 
 const sidebar: DefaultTheme.Sidebar = {

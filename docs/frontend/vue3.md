@@ -304,7 +304,7 @@ const arr = ref<string[]>(["a", "b", "c", "d"]);
 </template>
 ```
 
-## ref 家族
+## ref
 
 家族成员: ref, shallowRef, isRef, triggerRef, customRef
 
@@ -427,7 +427,7 @@ onMounted(() => {
 </template>
 ```
 
-## reactive 家族, readonly
+## reactive, readonly
 
 家族成员: reactive, shallowReactive
 
@@ -522,6 +522,12 @@ const readonlyFullName = computed<string>(
 
 ## watch 侦听器
 
+数据源
+
+1. 一个 ref/reactive 变量
+2. 一个 getter 函数 `() => refObj.value[.prop]` 或 `() => reactiveObj.prop`
+3. 1,2 的数组
+
 ### watch
 
 ::: code-group
@@ -583,7 +589,7 @@ const name = ref("lark");
 // 调用 watchHandle() 或 watchHandle.stop() 停止侦听
 const watchHandle = watch(
   [refObj, reactiveObj, name],
-  (newVal, oldVal) => {
+  (newVal, oldVal, onCleanup) => {
     console.log("[watch3] newVal:", newVal);
     console.log("[watch3] oldVal:", oldVal);
   } /** watchCallback */,
@@ -617,6 +623,7 @@ watch(
 不需要指定依赖项, 自动侦听 (自动收集 watchEffectCallback 中的响应式依赖), 默认立即执行 watchEffectCallback
 
 ```ts
+// 返回停止侦听的函数
 // 调用 watchHandle() 或 watchHandle.stop() 停止侦听
 const watchHandle = watchEffect(
   // watchEffectCallback
